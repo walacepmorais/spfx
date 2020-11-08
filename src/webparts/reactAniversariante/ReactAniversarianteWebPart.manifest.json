@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "25e75591-1108-45c2-b660-20fb380f54c5",
+  "alias": "ReactAniversarianteWebPart",
+  "componentType": "WebPart",
+
+  "version": "*",
+  "manifestVersion": 2,
+
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart"],
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "group": { "default": "Other" },
+    "title": { "default": "Home - Aniversariante" },
+    "description": { "default": "Home - Aniversariante" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Home - Aniversariante"
+    }
+  }]
+}

@@ -1,0 +1,42 @@
+@import "~office-ui-fabric-react/dist/sass/References.scss";
+
+.reactComunicados {
+  .container {
+   
+    margin: 0px auto;
+   
+  }
+
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    
+  }
+
+  .column12 {
+    @include ms-Grid-col;
+    @include ms-lg4;    
+  }
+
+  .column4 {
+    @include ms-Grid-col;
+    @include ms-lg4;    
+  }
+
+  .title {
+    @include ms-font-xl;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  
+}

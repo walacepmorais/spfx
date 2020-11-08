@@ -1,0 +1,51 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+
+.reactMidia {
+  .container {
+    
+    margin: 0px auto;
+    
+  }
+
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    
+  }
+
+  .column12 {
+    @include ms-Grid-col;
+    @include ms-lg12;    
+  }
+  .column6{
+    @include ms-Grid-col;
+    @include ms-lg6;
+  }
+
+  .title {
+    @include ms-font-xl;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .documentTile {
+    background-color: transparent;
+    outline: transparent;
+    position: relative;
+  }
+
+  .titleDataPublicacao{
+    height: 20px;
+  }
+  
+}

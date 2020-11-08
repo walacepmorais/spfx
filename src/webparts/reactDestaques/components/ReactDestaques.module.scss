@@ -1,0 +1,56 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+@import '~office-ui-fabric-core/dist/sass/References';
+
+.reactDestaques {
+  .container {
+    max-width: 700px;
+    margin: 0px auto;
+    height: auto;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;    
+  }
+
+  .column {
+    @include ms-Grid-col;
+    @include ms-lg12;
+       
+    
+  }
+
+  .title {
+    @include ms-font-xl;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+
+  @mixin img_destaque{
+    @include ms-depth-8;
+    height: 145px;
+    display: block;
+    max-width: 100%;
+  }
+
+  .img_direita{
+    @include img_destaque;
+  }
+
+  .img_direita_2{
+    @include img_destaque;
+    padding-top: 5px;
+  }
+
+}

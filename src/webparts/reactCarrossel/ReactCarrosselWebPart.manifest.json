@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "1009e328-a761-45b2-9533-ebc511f24d26",
+  "alias": "ReactCarrosselWebPart",
+  "componentType": "WebPart",
+
+  
+  "version": "*",
+  "manifestVersion": 2,
+  
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart"],
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "group": { "default": "Other" },
+    "title": { "default": "Home - Carrossel" },
+    "description": { "default": "Home - Carrossel" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Home - Carrossel"
+    }
+  }]
+}

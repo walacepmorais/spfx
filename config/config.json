@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "cibra-sp-fx-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/cibraSpFx/CibraSpFxWebPart.js",
+          "manifest": "./src/webparts/cibraSpFx/CibraSpFxWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-destaques-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactDestaques/ReactDestaquesWebPart.js",
+          "manifest": "./src/webparts/reactDestaques/ReactDestaquesWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-comunicados-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactComunicados/ReactComunicadosWebPart.js",
+          "manifest": "./src/webparts/reactComunicados/ReactComunicadosWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-midia-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactMidia/ReactMidiaWebPart.js",
+          "manifest": "./src/webparts/reactMidia/ReactMidiaWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-carrossel-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactCarrossel/ReactCarrosselWebPart.js",
+          "manifest": "./src/webparts/reactCarrossel/ReactCarrosselWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-midia-detail-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactMidiaDetail/ReactMidiaDetailWebPart.js",
+          "manifest": "./src/webparts/reactMidiaDetail/ReactMidiaDetailWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-aniversariante-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactAniversariante/ReactAniversarianteWebPart.js",
+          "manifest": "./src/webparts/reactAniversariante/ReactAniversarianteWebPart.manifest.json"
+        }
+      ]
+    },
+    "react-news-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactNews/ReactNewsWebPart.js",
+          "manifest": "./src/webparts/reactNews/ReactNewsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CibraSpFxWebPartStrings": "lib/webparts/cibraSpFx/loc/{locale}.js",
+    "ReactDestaquesWebPartStrings": "lib/webparts/reactDestaques/loc/{locale}.js",
+    "ReactComunicadosWebPartStrings": "lib/webparts/reactComunicados/loc/{locale}.js",
+    "ReactMidiaWebPartStrings": "lib/webparts/reactMidia/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "ReactCarrosselWebPartStrings": "lib/webparts/reactCarrossel/loc/{locale}.js",
+    "ReactMidiaDetailWebPartStrings": "lib/webparts/reactMidiaDetail/loc/{locale}.js",
+    "ReactAniversarianteWebPartStrings": "lib/webparts/reactAniversariante/loc/{locale}.js",
+    "ReactNewsWebPartStrings": "lib/webparts/reactNews/loc/{locale}.js"
+  }
+}

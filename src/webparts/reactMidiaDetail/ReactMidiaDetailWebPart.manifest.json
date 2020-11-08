@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "5dc1b5a7-052a-4546-bc03-b2bb9c188b14",
+  "alias": "ReactMidiaDetailWebPart",
+  "componentType": "WebPart",
+
+  "version": "*",
+  "manifestVersion": 2,
+
+  
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart"],
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "group": { "default": "Other" },
+    "title": { "default": "Publicação - Mídia Detail" },
+    "description": { "default": "Publicação - Midia Detail" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Publicação - Mídia Detail"
+    }
+  }]
+}
