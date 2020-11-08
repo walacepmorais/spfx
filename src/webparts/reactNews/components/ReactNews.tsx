@@ -20,7 +20,7 @@ import {
 } from 'office-ui-fabric-react/lib/DocumentCard';
 
 import { ImageFit } from 'office-ui-fabric-react/lib/Image';
-import { ActionButton, DefaultButton, IIconProps, ISize, Stack } from 'office-ui-fabric-react';
+import { ActionButton, DefaultButton, IIconProps, ISize, IStackStyles, PrimaryButton, Stack } from 'office-ui-fabric-react';
 import NewsService from '../service/NewsService';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
@@ -69,9 +69,8 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
   }
 
-  public componentDidMount(){
+  private _getItems(){
     var reactHandler = this;
-
     this.service.get()
     .then((result) => {
       reactHandler.setState({
@@ -83,17 +82,30 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
         hasPrevious : result.hasPrevious
       });
     });
+  }
+
+  public componentDidMount(){
+    var reactHandler = this;
+
+    this._getItems();
 
     this.service.getCategorias()
       .then((categorias) => {
         
 
-        let options : IDropdownOption[] = categorias.map((c) => {
+        let options : IDropdownOption[] = [
+          {
+            key: 0,
+            text :""
+          }
+        ];
+        
+        options = options.concat(categorias.map((c) => {
           return {
             key : c.Id,
             text: c.Title
           };
-        });
+        }));
 
         reactHandler.setState({
           categorias : options
@@ -105,23 +117,33 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
   }
 
 
-  private _getTiposComunicado(id: number){
+  private _getTiposComunicado(event, option, index){
+
     var reactHandler = this;
 
-    this.service.getTiposComunicado(id)
-      .then((categorias) => {
+    this.service.getTiposComunicado(option.key)
+      .then((tipos) => {
         
+        let options : IDropdownOption[] = [];
 
-        let options : IDropdownOption[] = categorias.map((c) => {
-          return {
-            key : c.Id,
-            text: c.Title
-          };
-        });
+        if(tipos.length > 0){
+          options.push({
+              key: 0,
+              text :""
+            });
+          
+          options = options.concat(tipos.map((c) => {
+            return {
+              key : c.Id,
+              text: c.Title
+            };
+          }));
+        }
 
-        reactHandler.setState({
-          tiposComunicado : options
-        });
+          reactHandler.setState({
+            tiposComunicado : options
+          });
+        
 
       });
 
@@ -237,10 +259,12 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
     const nextIcon: IIconProps = { iconName: 'ChevronRightSmall' };
     const previousIcon: IIconProps = { iconName: 'ChevronLeftSmall' };
+    const filterIcon: IIconProps = { iconName: 'Filter' };
     const dropdownStyles: Partial<IDropdownStyles> = {
       dropdown: { width: 300 },
     };
-    
+    const stackTokens = { childrenGap: 50 };
+    const stackStyles: Partial<IStackStyles> = { root: { width: 650 } };
 
     return (
       <div className={ styles.reactNews }>
@@ -252,23 +276,37 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
               
               />
 
+
+            <Stack horizontal tokens={stackTokens} styles={stackStyles}>
               <Dropdown
+
                   placeholder="Selecione uma categoria"
                   label="Categorias"
                   options={this.state.categorias}
                   styles={dropdownStyles}
-                  onChange={(event, option, index) => { this._getTiposComunicado(index); }}
+                  onChange={(event, option, index) => { this._getTiposComunicado(event, option, index); }}
+                />
+                {this.state.tiposComunicado.length > 0 &&
+                  <Dropdown
+                      placeholder="Selecione um tipo"
+                      label="Tipos"
+                      options={this.state.tiposComunicado}
+                      styles={dropdownStyles}
+                    />
+                }
+              
+            </Stack>
+            <br></br>
+
+            <Stack horizontal tokens={stackTokens} styles={stackStyles}>
+              <PrimaryButton
+                  text="Filtrar"
+                  iconProps={filterIcon}
+                  onClick={() => { this._getItems(); }}
                 />
 
-            {this.state.tiposComunicado.length > 0 &&
-              <Dropdown
-                  placeholder="Selecione um tipo"
-                  label="Tipos"
-                  options={this.state.tiposComunicado}
-                  styles={dropdownStyles}
-                />
-            }
-
+            </Stack>
+                         
             <br></br>
 
               <Stack 
@@ -281,11 +319,13 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
               
               <br></br>
 
-              <DefaultButton text="<<" onClick={() => { this._getPrevious(); }}  disabled={!this.state.hasPrevious}/>
+              {/* <DefaultButton text="<<" onClick={() => { this._getPrevious(); }}  disabled={!this.state.hasPrevious}/>
 
               <DefaultButton text=">>" onClick={() => {this._getNext(); }}  disabled={!this.state.hasNext} />
 
-              <br></br>
+              <br></br> */}
+
+              <div className={styles.center}>
 
               <ActionButton iconProps={previousIcon} allowDisabledFocus  onClick={() => { this._getPrevious(); }} disabled={!this.state.hasPrevious} >
               Anterior
@@ -297,6 +337,8 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
               }}}>
                 Próximo
               </ActionButton>
+
+              </div>
 
               
             
