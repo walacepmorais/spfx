@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './ReactNews.module.scss';
 import { IReactNewsProps } from './IReactNewsProps';
 import * as moment from 'moment';
-import { INew, INewsResult, IItem } from '../interfaces/INews';
+import { INew, INewsResult, IItem, IFilter } from '../interfaces/INews';
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
 import { TestImages } from '@uifabric/example-data';
 
@@ -20,7 +20,7 @@ import {
 } from 'office-ui-fabric-react/lib/DocumentCard';
 
 import { ImageFit } from 'office-ui-fabric-react/lib/Image';
-import { ActionButton, DefaultButton, IIconProps, ISize, IStackStyles, PrimaryButton, Stack } from 'office-ui-fabric-react';
+import { ActionButton, Checkbox, DefaultButton, IIconProps, ISize, IStackStyles, Label, PrimaryButton, Stack } from 'office-ui-fabric-react';
 import NewsService from '../service/NewsService';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
@@ -38,6 +38,9 @@ export interface INewsState{
   hasNext : boolean;
   hasPrevious : boolean;
 
+  showMidiaFilter: boolean;
+
+  filters? :IFilter;
 }
 
 export default class ReactNews extends React.Component<IReactNewsProps, INewsState> {
@@ -64,14 +67,16 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
       hasNext : false,
       hasPrevious : true,
       categorias: [],
-      tiposComunicado: []
+      tiposComunicado: [],
+      showMidiaFilter: false,
+      filters: {}
     };
 
   }
 
-  private _getItems(){
+  private _getItems(filter?: IFilter){
     var reactHandler = this;
-    this.service.get()
+    this.service.get(filter)
     .then((result) => {
       reactHandler.setState({
         news: result.news,
@@ -107,6 +112,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
           };
         }));
 
+       
         reactHandler.setState({
           categorias : options
         });
@@ -116,8 +122,42 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
   }
 
+  private _filter(){
+    console.log(this.state.filters);
+    this._getItems(this.state.filters);
+  }
 
-  private _getTiposComunicado(event, option, index){
+  private _changeVideoMidia(event: React.ChangeEvent<HTMLInputElement>) {
+    let filters = this.state.filters;
+    filters.hasVideo = event.target.checked;
+    this.setState({
+      filters : filters
+    });
+  }
+  private _changeImagemMidia(event: React.ChangeEvent<HTMLInputElement>) {
+    let filters = this.state.filters;
+    filters.hasImagem = event.target.checked;
+    this.setState({
+      filters : filters
+    });
+  }
+
+  private _onTipoComunicadoChanged(event, option, index){
+    var reactHandler = this;
+
+    let filters = this.state.filters;
+    filters.tipoComunicado = { 
+      Id: option.key,
+      Title: option.text
+    };
+
+    reactHandler.setState({
+      filters: filters
+    });
+
+  }
+
+  private _onCategoriaChanged(event, option, index){
 
     var reactHandler = this;
 
@@ -140,29 +180,19 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
           }));
         }
 
-          reactHandler.setState({
-            tiposComunicado : options
-          });
+        reactHandler.setState({
+          tiposComunicado : options,
+          showMidiaFilter : option.text == "Galeria",
+          filters: {
+            categoria : {          
+              Id: option.key,
+              Title: option.text
+            }
+          }            
+        });
         
 
       });
-
-  }
-
-  private _goToPage(page: number): void {
-    var reactHandler = this;
-
-    this._getPage(page)
-    .then((result) => {
-      reactHandler.setState({
-        news: result.news,
-        currentPage : page,
-        totalPages : result.totalPages,
-        pageSize : result.pageSize
-      });
-    });
-
-    
 
   }
 
@@ -172,11 +202,6 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
  
   }
 
-  private _getPage(page: number): Promise<INewsResult> {
-
-   return this.service.getPage(page);
-
-  }
 
   private _getNext(){
     var reactHandler = this;
@@ -231,7 +256,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
     >
       <DocumentCard
         type={DocumentCardType.compact}        
-        onClickHref={item.Path}
+        onClickHref={item.FileRef}
         className={styles.column12}
       >
         {item.BannerImageUrl &&
@@ -265,6 +290,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
     };
     const stackTokens = { childrenGap: 50 };
     const stackStyles: Partial<IStackStyles> = { root: { width: 650 } };
+    const stackTokensCheckbox = { childrenGap: 10 };
 
     return (
       <div className={ styles.reactNews }>
@@ -279,20 +305,30 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
             <Stack horizontal tokens={stackTokens} styles={stackStyles}>
               <Dropdown
-
                   placeholder="Selecione uma categoria"
                   label="Categorias"
                   options={this.state.categorias}
                   styles={dropdownStyles}
-                  onChange={(event, option, index) => { this._getTiposComunicado(event, option, index); }}
+                  onChange={(event, option, index) => { this._onCategoriaChanged(event, option, index); }}
                 />
+                
                 {this.state.tiposComunicado.length > 0 &&
                   <Dropdown
                       placeholder="Selecione um tipo"
                       label="Tipos"
                       options={this.state.tiposComunicado}
                       styles={dropdownStyles}
+                      onChange={(event, option, index) => { this._onTipoComunicadoChanged(event, option, index); }}
                     />
+                }
+
+                {this.state.showMidiaFilter &&
+                  <Stack tokens={stackTokensCheckbox}>
+                    <Label>Mídias</Label>
+                    <Checkbox label="Imagem" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeImagemMidia(event);}} />
+                    <Checkbox label="Vídeo" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeVideoMidia(event);}}  />
+                  </Stack>
+
                 }
               
             </Stack>
@@ -302,7 +338,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
               <PrimaryButton
                   text="Filtrar"
                   iconProps={filterIcon}
-                  onClick={() => { this._getItems(); }}
+                  onClick={() => { this._filter(); }}
                 />
 
             </Stack>
@@ -319,11 +355,6 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
               
               <br></br>
 
-              {/* <DefaultButton text="<<" onClick={() => { this._getPrevious(); }}  disabled={!this.state.hasPrevious}/>
-
-              <DefaultButton text=">>" onClick={() => {this._getNext(); }}  disabled={!this.state.hasNext} />
-
-              <br></br> */}
 
               <div className={styles.center}>
 
@@ -347,4 +378,6 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
       </div>
     );
   }
+
+  
 }

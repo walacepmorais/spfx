@@ -15,7 +15,8 @@ export interface IUrl{
     Url?: string;
 }
 
-export interface INew extends IItem{    
+export interface INew extends IItem{
+    FileRef?: string;    
     Categoria?: ICategoria;
     TipoComunicado? : ITipoComunicado;
     FirstPublishedDate?: string;
@@ -49,4 +50,11 @@ export interface INewsResult{
 
     hasNext : boolean;
     hasPrevious : boolean;
+}
+
+export interface IFilter{
+    hasImagem?: boolean;
+    hasVideo?: boolean;
+    categoria?: IItem;
+    tipoComunicado?: IItem;
 }

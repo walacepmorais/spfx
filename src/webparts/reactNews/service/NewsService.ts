@@ -1,4 +1,4 @@
-import { INew, INewsResult, IItem } from './../interfaces/INews';
+import { INew, INewsResult, IItem, IFilter } from './../interfaces/INews';
 import MockHttpClient from "../common/MockHttpClient";
 import { SearchQueryBuilder, SearchResults } from '@pnp/sp/search';
 import { sp } from '@pnp/sp';
@@ -45,11 +45,11 @@ export default class NewsService{
 
     }
 
-    public get () : Promise<INewsResult>{
+    public get (filter? : IFilter) : Promise<INewsResult>{
         if (Environment.type === EnvironmentType.Local) {
             return this._getMockListData();
         } else if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint){
-            return this.getItems();
+            return this.getItems(filter);
         }
     }
 
@@ -93,7 +93,35 @@ export default class NewsService{
         });
     } 
 
-    public async getItems() : Promise<INewsResult>{
+    private _getFilterText(filter?: IFilter){
+        let queryText : string  = "CategoriaId ne null";
+
+        if(filter === undefined) return queryText;
+
+        if(filter.categoria !== undefined){
+            queryText = `CategoriaId eq ${filter.categoria.Id}`;
+        }
+
+        if(filter.tipoComunicado !== undefined){
+            queryText += ` and TipoComunicadoId eq ${filter.tipoComunicado.Id}` ;
+        }
+
+        if(filter.hasImagem == true && filter.hasVideo == false){
+            queryText += " and Midia eq 'Imagens'" ;
+        }else if(filter.hasImagem == false && filter.hasVideo == true){
+            queryText += " and Midia eq 'Vídeos'";
+        }else if(filter.hasImagem == true && filter.hasVideo == true){
+            queryText += " and (Midia eq 'Vídeos' or Midia eq 'Imagens')";
+        }
+
+
+        console.log(queryText);
+
+        return queryText;
+
+    }
+
+    public async getItems(filter?: IFilter) : Promise<INewsResult>{
         return new Promise<any>(async (resolve, reject) => {
             try{
                 this.list = sp.web.lists.getByTitle('Site Pages');
@@ -112,6 +140,7 @@ export default class NewsService{
                         'Created',
                         'Modified',
                         'FirstPublishedDate')
+                    .filter(this._getFilterText(filter))
                     .expand('Categoria', 'TipoComunicado')
                     .top(this.pageSize);
 
