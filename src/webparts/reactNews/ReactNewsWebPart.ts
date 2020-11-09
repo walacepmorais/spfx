@@ -52,6 +52,9 @@ export default class ReactNewsWebPart extends BaseClientSideWebPart<IReactNewsWe
 
   public onInit(): Promise<void> {
 
+    let params = (new URL(document.location.href)).searchParams;
+    this.properties.title=params.get('categoria') != null ? params.get('categoria') : "Publicações";
+
     return super.onInit().then(_ => {
 
       sp.setup({

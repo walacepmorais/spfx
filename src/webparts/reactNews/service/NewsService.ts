@@ -98,17 +98,17 @@ export default class NewsService{
 
         if(filter === undefined) return queryText;
 
-        if(filter.categoria !== undefined){
-            queryText = `CategoriaId eq ${filter.categoria.Id}`;
+        if(filter.categoria !== null && filter.categoria !== undefined && filter.categoria != ""){
+            queryText = `Categoria/Title eq '${filter.categoria}'`;
         }
 
-        if(filter.tipoComunicado !== undefined){
-            queryText += ` and TipoComunicadoId eq ${filter.tipoComunicado.Id}` ;
+        if(filter.tipoComunicado !== null && filter.tipoComunicado !== undefined && filter.tipoComunicado != ""){
+            queryText += ` and TipoComunicado/Title eq '${filter.tipoComunicado}'` ;
         }
 
-        if(filter.hasImagem == true && filter.hasVideo == false){
+        if(filter.hasImagem == true && (filter.hasVideo == false || filter.hasVideo == null)){
             queryText += " and Midia eq 'Imagens'" ;
-        }else if(filter.hasImagem == false && filter.hasVideo == true){
+        }else if( (filter.hasImagem == false || filter.hasImagem == null) && filter.hasVideo == true){
             queryText += " and Midia eq 'Vídeos'";
         }else if(filter.hasImagem == true && filter.hasVideo == true){
             queryText += " and (Midia eq 'Vídeos' or Midia eq 'Imagens')";

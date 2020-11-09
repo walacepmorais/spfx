@@ -1,6 +1,10 @@
-import { IAniversariante } from './../interfaces/IAniversariante';
+import { IAniversariante, IItem } from './../interfaces/IAniversariante';
 import { sp } from "@pnp/sp";
 import "@pnp/sp/search";
+import "@pnp/sp/webs";
+import "@pnp/sp/lists";
+import "@pnp/sp/items";
+import "@pnp/sp/fields";
 import { ISearchQuery, SearchResults, SearchQueryBuilder } from "@pnp/sp/search";
 import MockHttpClient from '../common/MockHttpClient';
 import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
@@ -26,6 +30,12 @@ export default class AniversarianteService{
         }
     }
 
+    public async getLocalidades() : Promise<IItem[]>{
+        return new Promise<any>(async (resolve, reject) => {
+            let localidades = await sp.web.lists.getByTitle('Localidade').items.select("Title", "ID").orderBy("Title").get<IItem>();
+            resolve(localidades);
+        });
+    }
 
     private _getMockListData(): Promise<IAniversariante[]> {
         return MockHttpClient.get()
@@ -44,7 +54,7 @@ export default class AniversarianteService{
 
         let date = moment().day(0).date();
 
-        let query, inicio1, fim1, inicio2, fim2, sunday,saturday : string;
+        let query: string, inicio1: string, fim1: string, inicio2: string, fim2: string, sunday: string, saturday : string;
         let format : string = "2000-MM-DD";
 
         if( moment().day(0).year() < moment().day(6).year()){
@@ -106,7 +116,7 @@ export default class AniversarianteService{
                 PreferredName: result["PreferredName"]
             };
 
-        });
+        }).sort((a,b) => (moment(a.Birthday) > moment(b.Birthday)) ? 1 : ((moment(b.Birthday) > moment(a.Birthday)) ? -1 : 0));
 
 
         return Promise.resolve(aniversariantes);

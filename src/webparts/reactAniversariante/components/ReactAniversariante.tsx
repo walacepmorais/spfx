@@ -10,10 +10,10 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { TestImages } from '@uifabric/example-data';
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
-import { Link } from 'office-ui-fabric-react';
 import { Pagination } from "@pnp/spfx-controls-react/lib/pagination";
-import { Items } from '@pnp/sp/items';
-import { DefaultEffects } from '@fluentui/react';
+import { DefaultEffects, Link } from '@fluentui/react';
+import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { TextField } from 'office-ui-fabric-react';
 
 export interface IReactAniversarianteState{ 
   page: IPersonaSharedProps[];
@@ -21,6 +21,7 @@ export interface IReactAniversarianteState{
    currentPage : number;
    totalPages : number;
    limiter : number;
+   localidades: IDropdownOption[];
 }
 
 export default class ReactAniversariante extends React.Component<IReactAniversarianteProps, IReactAniversarianteState> {
@@ -30,6 +31,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
   private totalPages : number;
   private limiter : number;
   private aniversariantes : IPersonaSharedProps[];
+  private filteredAniversariantes : IPersonaSharedProps[];
 
   constructor(props: IReactAniversarianteProps) {
     super(props);
@@ -38,6 +40,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     this.totalPages = 1;
     this.limiter = 5;
     this.aniversariantes = [];
+    this.filteredAniversariantes = [];
 
     this.state = { 
       page : [
@@ -61,7 +64,8 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
       unidades : [],
       currentPage : this.currentPage,
       totalPages : this.totalPages,
-      limiter : this.limiter
+      limiter : this.limiter,
+      localidades: []
     };
 
     
@@ -71,6 +75,30 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
   public componentDidMount(){
 
     var reactHandler = this;
+
+    this.props.service.getLocalidades()
+      .then((localidades) => {
+
+        let options : IDropdownOption[] = [
+          {
+            key: 0,
+            text : "Todas as Unidades"
+          }
+        ];
+        
+        options = options.concat(localidades.map((c) => {
+          return {
+            key : c.Id,
+            text: c.Title
+          };
+        }));
+
+       
+        reactHandler.setState({
+          localidades : options
+        });
+
+      });
 
     this.props.service.get()
         .then((data) => {
@@ -87,11 +115,13 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
           };
         });
 
-        this.totalPages = Math.ceil(this.aniversariantes.length / this.limiter);
+        this.filteredAniversariantes = this.aniversariantes;
+
+        this.totalPages = Math.ceil(this.filteredAniversariantes.length / this.limiter);
         this.currentPage = 1;
 
         reactHandler.setState({
-          page: this.aniversariantes.slice(0, this.currentPage * this.limiter ) ,
+          page: this.filteredAniversariantes.slice(0, this.currentPage * this.limiter ) ,
           currentPage : this.currentPage,
           totalPages : this.totalPages,
           limiter : this.limiter
@@ -110,7 +140,9 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     let start = (this.currentPage -1) * this.limiter;
     let end = start + this.limiter;
     console.log(start, end);
-    let slice = this.aniversariantes.slice(start, end);
+
+    let slice = this.filteredAniversariantes.slice(start, end);    
+    this.totalPages = Math.ceil(this.filteredAniversariantes.length / this.limiter);
 
     reactHandler.setState({
       page: slice,
@@ -121,33 +153,69 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
 
   }
 
+
+  private _onLocalidadeChanged(event: React.FormEvent<HTMLDivElement>, option: IDropdownOption, index: number) {
+
+    if(option.key == 0){
+      this.filteredAniversariantes = this.aniversariantes;
+    }else{
+      this.filteredAniversariantes = this.aniversariantes.filter((value ) => {
+          return value.secondaryText == option.text;
+        });
+    }
+
+    this._getPage(1);
+  }
+
   public render(): React.ReactElement<IReactAniversarianteProps> {
+    const dropdownStyles: Partial<IDropdownStyles> = {
+      dropdown: { width: 300 },
+    };
+
     return (
       <div className={ styles.reactAniversariante }>
         <div className={ styles.container }>
           <div className={ styles.row }>
             <div className={ styles.column }>
             <WebPartTitle displayMode={this.props.displayMode}
+              className={styles.font}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
               moreLink={
-                <Link href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Aniversariantes&amp;newsSource=1"}>Ver todos</Link>
+                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Aniversariantes&amp;newsSource=1"}>Ver todos</Link>
               }
               />
+
               
             <Stack tokens={{ childrenGap: 10 }}>
 
+            <Stack horizontal tokens={{ childrenGap: 10 }}>
+              <Label className={styles.font}>{moment().format('DD/MM/YYYY')}</Label>
+              <Dropdown
+                  placeholder="Selecione uma Unidade"                  
+                  options={this.state.localidades}
+                  onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
+                  className={styles.font}
+                />
+
+            </Stack>
+
+            
+
               {this.state.page.map((item: IPersonaSharedProps, _index: number) => {
-                return <Persona
-                  {...item}
-                  size={PersonaSize.size72}
-                  hidePersonaDetails={false}
-                  imageAlt={item.text}
-                  style={{ boxShadow: DefaultEffects.elevation4 }}
-                />;
+                return <div className={styles.personaBox}>
+                  <Persona
+                    {...item}
+                    size={PersonaSize.size72}
+                    hidePersonaDetails={false}
+                    imageAlt={item.text}
+                    className={styles.font}
+                  />
+                  </div>;
               })}
 
             </Stack>
+
             <Pagination
               currentPage={this.state.currentPage}
               totalPages={this.state.totalPages} 
@@ -166,6 +234,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
       </div>
     );
   }
+  
 
   
 }

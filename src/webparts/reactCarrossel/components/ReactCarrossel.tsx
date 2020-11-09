@@ -65,7 +65,7 @@ export default class ReactCarrossel extends React.Component<IReactCarrosselProps
       <div className={ styles.reactCarrossel }>
         <div className={ styles.container }>
 
-          <Carousel
+          <Carousel 
             buttonsLocation={CarouselButtonsLocation.center}
             buttonsDisplay={CarouselButtonsDisplay.buttonsOnly}
             

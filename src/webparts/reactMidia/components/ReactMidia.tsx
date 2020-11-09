@@ -92,6 +92,7 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
         type={DocumentCardType.normal}        
         onClickHref={item.FileRef}
         style={{ boxShadow: DefaultEffects.elevation4 }}
+        className={styles.font}
         >
         <DocumentCardImage height={150} imageFit={ImageFit.cover} imageSrc={item.BannerImageUrl.Url} />
 
@@ -134,8 +135,9 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
             <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
+              className={styles.font}
               moreLink={
-                <Link href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Mídia&amp;newsSource=1"}>Ver todos</Link>
+                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Mídia&amp;newsSource=1"}>Ver todos</Link>
               }
               />
           </div>
@@ -161,16 +163,19 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
                     aria-label={item.Title}
                   >
                     <DocumentCard
+                      className={styles.font}
                       type={DocumentCardType.normal}
                       onClickHref={item.FileRef}>
 
                       <DocumentCardPreview {...previewProps} />                      
                       <DocumentCardDetails>
                         <DocumentCardTitle
+                        className={styles.font}
                           title={item.Title}
                           shouldTruncate={true}
                         />
                         <DocumentCardTitle
+                        
                           title={"Publicado em " + moment(item.FirstPublishedDate).format('LL') }  
                           showAsSecondaryTitle={true}
                           shouldTruncate={false}
@@ -179,7 +184,8 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
                         <DocumentCardTitle
                           title={item.Count + " " + item.Midia.toLowerCase()}  
                           showAsSecondaryTitle={false}
-                          shouldTruncate={true}                           
+                          shouldTruncate={true}   
+                          className={styles.font}                        
                         />   
                         
                       </DocumentCardDetails>

@@ -86,7 +86,7 @@ export default class MidiaService{
             }).then(async (midia: IMidia) => {                    
 
                     let path = midia.Galeria != null ? unescape( midia.Galeria.Url.replace(this.url + "/", "")) : "";
-                    console.log(midia.Galeria.Url, path);
+                    console.log(path);
 
                     return sp.web
                         .getFolderByServerRelativePath(path)

@@ -25,6 +25,8 @@ import NewsService from '../service/NewsService';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
 
+
+
 export interface INewsState{
   news: INew[];
   categorias: IDropdownOption[];
@@ -41,6 +43,8 @@ export interface INewsState{
   showMidiaFilter: boolean;
 
   filters? :IFilter;
+
+  specificSearch?: boolean;
 }
 
 export default class ReactNews extends React.Component<IReactNewsProps, INewsState> {
@@ -92,7 +96,24 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
   public componentDidMount(){
     var reactHandler = this;
 
-    this._getItems();
+    let params = (new URL(document.location.href)).searchParams;
+
+    let filters : IFilter = {
+      categoria : params.get('categoria'),
+      tipoComunicado : params.get('tipocomunicado'),
+      hasImagem : params.get('imagem') != null && params.get('imagem') == 'true' ? true : null,
+      hasVideo : params.get('video') != null && params.get('video') == 'true' ? true : null
+    };
+
+    let specificSearch : boolean = filters.categoria != null || filters.tipoComunicado != null || filters.hasImagem != null || filters.hasVideo != null;
+
+    reactHandler.setState({
+      specificSearch : specificSearch
+    });
+
+    console.log(filters);
+
+    this._getItems(filters);
 
     this.service.getCategorias()
       .then((categorias) => {
@@ -146,10 +167,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
     var reactHandler = this;
 
     let filters = this.state.filters;
-    filters.tipoComunicado = { 
-      Id: option.key,
-      Title: option.text
-    };
+    filters.tipoComunicado = option.text;
 
     reactHandler.setState({
       filters: filters
@@ -184,10 +202,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
           tiposComunicado : options,
           showMidiaFilter : option.text == "Galeria",
           filters: {
-            categoria : {          
-              Id: option.key,
-              Title: option.text
-            }
+            categoria : option.text
           }            
         });
         
@@ -265,9 +280,9 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
         }
 
         <DocumentCardDetails>
-          <DocumentCardTitle title={item.Title}  />
-          <DocumentCardTitle title={item.Description} shouldTruncate showAsSecondaryTitle/>
-          <DocumentCardTitle title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')} showAsSecondaryTitle/>
+          <DocumentCardTitle title={item.Title}  className={styles.font}/>
+          <DocumentCardTitle title={item.Description} shouldTruncate showAsSecondaryTitle className={styles.font}/>
+          <DocumentCardTitle title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')} showAsSecondaryTitle className={styles.font}/>
           {/* <DocumentCardTitle title={`${item.ViewsLifeTime} visualizações`} shouldTruncate showAsSecondaryTitle/> */}
           
         </DocumentCardDetails>
@@ -289,6 +304,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
       dropdown: { width: 300 },
     };
     const stackTokens = { childrenGap: 50 };
+    const stackTokensVertical = { childrenGap: 10 };
     const stackStyles: Partial<IStackStyles> = { root: { width: 650 } };
     const stackTokensCheckbox = { childrenGap: 10 };
 
@@ -299,53 +315,62 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
           <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
+              className={styles.font}
               
               />
 
-
-            <Stack horizontal tokens={stackTokens} styles={stackStyles}>
-              <Dropdown
-                  placeholder="Selecione uma categoria"
-                  label="Categorias"
-                  options={this.state.categorias}
-                  styles={dropdownStyles}
-                  onChange={(event, option, index) => { this._onCategoriaChanged(event, option, index); }}
-                />
-                
-                {this.state.tiposComunicado.length > 0 &&
+            {!this.state.specificSearch &&
+              <Stack tokens={stackTokensVertical} >
+                <Stack horizontal tokens={stackTokens} className={styles.font}>
                   <Dropdown
-                      placeholder="Selecione um tipo"
-                      label="Tipos"
-                      options={this.state.tiposComunicado}
+                      placeholder="Selecione uma categoria"
+                      label="Categorias"
+                      options={this.state.categorias}
                       styles={dropdownStyles}
-                      onChange={(event, option, index) => { this._onTipoComunicadoChanged(event, option, index); }}
+                      className={styles.font}
+                      onChange={(event, option, index) => { this._onCategoriaChanged(event, option, index); }}
                     />
-                }
+                    
+                    {this.state.tiposComunicado.length > 0 &&
+                      <Dropdown
+                          placeholder="Selecione um tipo"
+                          label="Tipos"
+                          options={this.state.tiposComunicado}
+                          styles={dropdownStyles}
+                          className={styles.font}
+                          onChange={(event, option, index) => { this._onTipoComunicadoChanged(event, option, index); }}
+                        />
+                    }
 
-                {this.state.showMidiaFilter &&
-                  <Stack tokens={stackTokensCheckbox}>
-                    <Label>Mídias</Label>
-                    <Checkbox label="Imagem" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeImagemMidia(event);}} />
-                    <Checkbox label="Vídeo" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeVideoMidia(event);}}  />
-                  </Stack>
+                    {this.state.showMidiaFilter &&
+                      <Stack tokens={stackTokensCheckbox}>
+                        <Label className={styles.font}>Mídias</Label>
+                        <Checkbox label="Imagem" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeImagemMidia(event);}} className={styles.font}/>
+                        <Checkbox label="Vídeo" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeVideoMidia(event);}}  className={styles.font}/>
+                      </Stack>
 
-                }
-              
-            </Stack>
-            <br></br>
+                    }
+                  
+                </Stack>
 
-            <Stack horizontal tokens={stackTokens} styles={stackStyles}>
-              <PrimaryButton
-                  text="Filtrar"
-                  iconProps={filterIcon}
-                  onClick={() => { this._filter(); }}
-                />
+                <Stack horizontal tokens={stackTokensVertical} className={styles.font}>
+                  <PrimaryButton
+                  className={styles.font}
+                      text="Filtrar"
+                      iconProps={filterIcon}
+                      onClick={() => { this._filter(); }}
+                    />
+    
+                </Stack>
+              </Stack>
 
-            </Stack>
+            }
+
+            
                          
             <br></br>
 
-              <Stack 
+              <Stack className={styles.font}
                 tokens={{ childrenGap: 20 }}
                 >
                 {this.state.news.map((item: INew, _index: number) => {
@@ -358,11 +383,11 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
               <div className={styles.center}>
 
-              <ActionButton iconProps={previousIcon} allowDisabledFocus  onClick={() => { this._getPrevious(); }} disabled={!this.state.hasPrevious} >
+              <ActionButton className={styles.font} iconProps={previousIcon} allowDisabledFocus  onClick={() => { this._getPrevious(); }} disabled={!this.state.hasPrevious} >
               Anterior
               </ActionButton>
 
-              <ActionButton iconProps={nextIcon} allowDisabledFocus onClick={() => {this._getNext(); }} disabled={!this.state.hasNext} 
+              <ActionButton className={styles.font} iconProps={nextIcon} allowDisabledFocus onClick={() => {this._getNext(); }} disabled={!this.state.hasNext} 
               styles={{flexContainer: {
                 flexDirection: 'row-reverse'
               }}}>

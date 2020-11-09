@@ -2,7 +2,16 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 //@import "galllery";
 
+@import '~office-ui-fabric-core/dist/sass/References';
+
+@import '../../../styles/font';
+
 .reactMidiaDetail {
+  .font {
+    font-family: "The Mix" !important;
+    
+  }
+  
   .container {
     margin: 0px auto;
   }

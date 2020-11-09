@@ -55,6 +55,6 @@ export interface INewsResult{
 export interface IFilter{
     hasImagem?: boolean;
     hasVideo?: boolean;
-    categoria?: IItem;
-    tipoComunicado?: IItem;
+    categoria?: string;
+    tipoComunicado?: string;
 }

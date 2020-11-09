@@ -85,6 +85,7 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
         type={isCompact ? DocumentCardType.compact : DocumentCardType.normal}        
         onClickHref={item.FileRef}
         style={{ boxShadow: DefaultEffects.elevation4 }}
+        className={styles.font}
       >
         <DocumentCardPreview {...previewProps} />
 
@@ -92,8 +93,10 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
           <DocumentCardTitle
             title={item.Title}
             shouldTruncate={true}
+            className={styles.font}
           />   
           <DocumentCardTitle
+          className={styles.font}
             title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')}  
             showAsSecondaryTitle={true}
             shouldTruncate={true}
@@ -117,8 +120,9 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
         <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
+              className={styles.font}
               moreLink={
-                <Link href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Comunicados&amp;newsSource=1"}>Ver todos</Link>
+                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Comunicados&amp;newsSource=1"}>Ver todos</Link>
               }/>
               
 
