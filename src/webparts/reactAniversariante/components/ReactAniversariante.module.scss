@@ -4,8 +4,8 @@
 @import '../../../styles/font';
 
 
-
 .reactAniversariante {
+  //background-color: rgb(243, 242, 241);
 
   .font {
     font-family: "The Mix" !important;
@@ -20,7 +20,7 @@
   }
 
   .personaBox {
-    @include ms-depth-8;
+    //@include ms-depth-8;
     padding: 5px;
   }
 

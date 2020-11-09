@@ -14,6 +14,11 @@ import { IReactAniversarianteProps } from './components/IReactAniversarianteProp
 import { sp } from "@pnp/sp";
 import AniversarianteService from './service/AniversarianteService';
 
+import {
+  ThemeProvider,
+  ThemeChangedEventArgs,
+  IReadonlyTheme
+} from '@microsoft/sp-component-base';
 
 export interface IReactAniversarianteWebPartProps {
   description: string;
@@ -23,6 +28,36 @@ export interface IReactAniversarianteWebPartProps {
 export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IReactAniversarianteWebPartProps> {
 
   private service : AniversarianteService;
+  private _themeProvider: ThemeProvider;
+  private _themeVariant: IReadonlyTheme | undefined;
+
+  private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
+    this._themeVariant = args.theme;
+    console.log("_handleThemeChangedEvent", this._themeVariant);
+
+    this.render();
+  }
+
+  public onInit(): Promise<void> {
+
+    this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
+
+    // If it exists, get the theme variant
+    this._themeVariant = this._themeProvider.tryGetTheme();
+
+    // Register a handler to be notified if the theme variant changes
+    this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
+
+    return super.onInit().then(_ => {
+
+      sp.setup({
+        spfxContext: this.context
+      });
+
+      this.service = new AniversarianteService(this.context.pageContext.web.absoluteUrl);
+
+    });
+  }
 
   public render(): void {
     const element: React.ReactElement<IReactAniversarianteProps> = React.createElement(
@@ -35,7 +70,8 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
         displayMode:this.displayMode,
         updateProperty: (value:string) => {
           this.properties.title=value;
-        }
+        },
+        themeVariant: this._themeVariant
       }
     );
 
@@ -46,19 +82,7 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
     ReactDom.unmountComponentAtNode(this.domElement);
   }
 
-
-  public onInit(): Promise<void> {
-
-    return super.onInit().then(_ => {
-
-      sp.setup({
-        spfxContext: this.context
-      });
-
-      this.service = new AniversarianteService(this.context.pageContext.web.absoluteUrl);
-
-    });
-  }
+ 
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {

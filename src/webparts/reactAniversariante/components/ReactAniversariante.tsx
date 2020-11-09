@@ -14,6 +14,8 @@ import { Pagination } from "@pnp/spfx-controls-react/lib/pagination";
 import { DefaultEffects, Link } from '@fluentui/react';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
+
 
 export interface IReactAniversarianteState{ 
   page: IPersonaSharedProps[];
@@ -23,6 +25,8 @@ export interface IReactAniversarianteState{
    limiter : number;
    localidades: IDropdownOption[];
 }
+
+
 
 export default class ReactAniversariante extends React.Component<IReactAniversarianteProps, IReactAniversarianteState> {
 
@@ -172,8 +176,11 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
       dropdown: { width: 300 },
     };
 
+    const { semanticColors }: IReadonlyTheme = this.props.themeVariant;
+    console.log("render", semanticColors);
+
     return (
-      <div className={ styles.reactAniversariante }>
+      <div className={ styles.reactAniversariante } style={{backgroundColor: semanticColors.bodyBackground, color: semanticColors.bodyText}}>
         <div className={ styles.container }>
           <div className={ styles.row }>
             <div className={ styles.column }>
