@@ -13,17 +13,21 @@ import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
 import { Pagination } from "@pnp/spfx-controls-react/lib/pagination";
 import { DefaultEffects, Link } from '@fluentui/react';
 import { Dropdown, DropdownMenuItemType, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { TextField } from 'office-ui-fabric-react';
+import { ActionButton, BaseButton, Button, DocumentCardActions, IIconProps, TextField } from 'office-ui-fabric-react';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
+
+import Loader from 'react-loader-spinner';
 
 
 export interface IReactAniversarianteState{ 
-  page: IPersonaSharedProps[];
-  unidades: string[];
+   page: IAniversariante[];
+   unidades: string[];
    currentPage : number;
    totalPages : number;
    limiter : number;
    localidades: IDropdownOption[];
+   isLinking?: boolean;
+   userName?: string;
 }
 
 
@@ -34,8 +38,13 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
   private currentPage : number;
   private totalPages : number;
   private limiter : number;
-  private aniversariantes : IPersonaSharedProps[];
-  private filteredAniversariantes : IPersonaSharedProps[];
+  private aniversariantes : IAniversariante[];
+  private filteredAniversariantes : IAniversariante[];
+
+  private likeIcon: IIconProps = { iconName: 'Like' }; 
+  private commentIcon: IIconProps = { iconName: 'Comment' }; 
+  private likedIcon: IIconProps = { iconName: 'LikeSolid' }; 
+  private commentedIcon: IIconProps = { iconName: 'CommentSolid' }; 
 
   constructor(props: IReactAniversarianteProps) {
     super(props);
@@ -76,6 +85,25 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
 
   }
 
+ private _getAniversariantesInfo(){
+  var reactHandler = this;
+  this.props.service
+  .getAniversariantesInfo(this.aniversariantes)
+  .then((aniversariantes) => {
+    console.log(aniversariantes);
+    this.filteredAniversariantes = aniversariantes;
+
+    reactHandler.setState({
+      page: this.filteredAniversariantes.slice(0, this.currentPage * this.limiter ) ,
+      currentPage : this.currentPage,
+      totalPages : this.totalPages,
+      limiter : this.limiter
+    });
+
+
+  });
+ }
+
   public componentDidMount(){
 
     var reactHandler = this;
@@ -109,15 +137,14 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
           
         console.log(data);
         this.aniversariantes = data            
-          .map<IPersonaSharedProps>((aniversariante) => {
-          return {
-            imageUrl: aniversariante.PictureURL,
-            text: aniversariante.Title,
-            secondaryText: aniversariante.OfficeNumber,
-            tertiaryText: moment(aniversariante.Birthday).format("DD/MM"),
-            optionalText: aniversariante.Department,
-          };
-        });
+          .map<IAniversariante>((aniversariante) => {
+            aniversariante.imageUrl = aniversariante.PictureURL;
+            aniversariante.text= aniversariante.Title;
+            aniversariante.secondaryText= aniversariante.OfficeNumber;
+            aniversariante.tertiaryText= moment(aniversariante.Birthday).format("DD/MM");
+            aniversariante.optionalText= aniversariante.Department;            
+            return aniversariante;
+          });
 
         this.filteredAniversariantes = this.aniversariantes;
 
@@ -130,6 +157,10 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
           totalPages : this.totalPages,
           limiter : this.limiter
         });
+
+        this._getAniversariantesInfo();
+
+        
 
       });
   }
@@ -171,14 +202,41 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     this._getPage(1);
   }
 
+
+  private _like(userName : string) {
+    var reactHandler = this;
+
+    reactHandler.setState({
+      isLinking: true,
+      userName: userName
+    });
+
+    this.props.service.like(userName, userName)
+    .then((result) => {
+
+      let aniversariantes = this.state.page;
+      let aniversariante = aniversariantes.filter((v) => { return v.UserName === userName; })[0];
+      aniversariante.IsLiked = result.isLikedByUser;
+      aniversariante.Likes = result.likeCount;
+
+      reactHandler.setState({
+        page: aniversariantes,
+        isLinking: false,
+        userName: ""
+      });
+
+
+    });
+
+  }
+
   public render(): React.ReactElement<IReactAniversarianteProps> {
     const dropdownStyles: Partial<IDropdownStyles> = {
       dropdown: { width: 300 },
     };
 
     const { semanticColors }: IReadonlyTheme = this.props.themeVariant;
-    console.log("render", semanticColors);
-
+    
     return (
       <div className={ styles.reactAniversariante } style={{backgroundColor: semanticColors.bodyBackground, color: semanticColors.bodyText}}>
         <div className={ styles.container }>
@@ -188,9 +246,9 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
               className={styles.font}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Aniversariantes&amp;newsSource=1"}>Ver todos</Link>
-              }
+              // moreLink={
+              //   <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Aniversariantes&amp;newsSource=1"}>Ver todos</Link>
+              // }
               />
 
               
@@ -207,17 +265,33 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
 
             </Stack>
 
-            
-
-              {this.state.page.map((item: IPersonaSharedProps, _index: number) => {
+              {this.state.page.map((item: IAniversariante, _index: number) => {
                 return <div className={styles.personaBox}>
                   <Persona
                     {...item}
-                    size={PersonaSize.size72}
+                    size={PersonaSize.size48}
                     hidePersonaDetails={false}
                     imageAlt={item.text}
                     className={styles.font}
                   />
+                  {item.InfoLoaded &&
+                    <Stack horizontal>
+
+                      {this.state.isLinking && this.state.userName === item.UserName
+                      ?
+                      <Loader type="Hearts" color={semanticColors.primaryButtonBackground} height={30} width={30} />
+                      :
+                      <ActionButton iconProps={item.IsLiked ? this.likedIcon : this.likeIcon} allowDisabledFocus title="Curtir" onClick={(event) => { this._like(item.UserName); }}>
+                        Curtir ({item.Likes})
+                      </ActionButton>
+                      }
+
+                      <ActionButton iconProps={item.IsCommented ? this.commentedIcon : this.commentIcon} allowDisabledFocus href={item.PageUrl} target="_blank" title="Comentar"> 
+                        Comentar ({item.Comments})
+                      </ActionButton>
+
+                    </Stack>
+                  }
                   </div>;
               })}
 

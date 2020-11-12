@@ -33,8 +33,6 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
 
   private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
     this._themeVariant = args.theme;
-    console.log("_handleThemeChangedEvent", this._themeVariant);
-
     this.render();
   }
 
@@ -54,7 +52,7 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
         spfxContext: this.context
       });
 
-      this.service = new AniversarianteService(this.context.pageContext.web.absoluteUrl);
+      this.service = new AniversarianteService(this.context.pageContext.web.serverRelativeUrl);
 
     });
   }

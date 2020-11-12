@@ -137,7 +137,7 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
               updateProperty={this.props.updateProperty} 
               className={styles.font}
               moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Mídia&amp;newsSource=1"}>Ver todos</Link>
+                <Link className={styles.font} href={this.props.context.pageContext.web.serverRelativeUrl + "/SitePages/Publicações.aspx?categoria=Galeria"}>Ver todos</Link>
               }
               />
           </div>
@@ -197,66 +197,6 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
 
 
         </div>
-
-
-
-              
-              {/* <GridLayout
-                ariaLabel="Mídia"
-                items={this.state.items}
-                onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}
-              /> */}
-
-              {/* <FilmstripLayout  ariaLabel={"Mídia."}>
-
-              {this.state.items.map((item: IMidia, _index: number) => {
-                const previewProps: IDocumentCardPreviewProps = {
-                  previewImages: [
-                    {
-                      previewImageSrc: item.BannerImageUrl.Url,
-                      imageFit: ImageFit.cover,
-                      height: 130
-                    }
-                  ]
-                };
-
-                return <div
-                    className={styles.documentTile}
-                    data-is-focusable={true}
-                    role="listitem"
-                    aria-label={item.Title}
-                  >
-                    <DocumentCard
-                      type={DocumentCardType.normal}
-                      onClickHref={item.FileRef}>
-
-                      <DocumentCardPreview {...previewProps} />
-                      <DocumentCardLocation location={item.FileRef} />
-                      <DocumentCardDetails>
-                        <DocumentCardTitle
-                          title={item.Title}
-                          shouldTruncate={true}
-                        />
-                        <DocumentCardTitle
-                          title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')}  
-                          showAsSecondaryTitle={true}
-                          shouldTruncate={true}
-                        />  
-
-                        <DocumentCardTitle
-                          title={item.Count + " " + item.Midia.toLowerCase()}  
-                          showAsSecondaryTitle={true}
-                          shouldTruncate={true}
-                        />   
-                        
-                      </DocumentCardDetails>
-                    </DocumentCard>
-                  </div>;
-
-              })}
-
-              </FilmstripLayout> */}
-
 
         </div>
       </div>

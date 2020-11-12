@@ -122,7 +122,7 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
               updateProperty={this.props.updateProperty} 
               className={styles.font}
               moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Comunicados&amp;newsSource=1"}>Ver todos</Link>
+                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
               }/>
               
 
