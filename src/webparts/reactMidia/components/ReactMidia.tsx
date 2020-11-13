@@ -32,7 +32,7 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
 
   constructor(props: IReactMidiaProps) {
     super(props);
-    moment.locale(this.props.context.pageContext.cultureInfo.currentUICultureName);
+    moment.locale('pt-br');
 
 
     this.state = { 

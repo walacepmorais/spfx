@@ -48,7 +48,9 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
 
   constructor(props: IReactAniversarianteProps) {
     super(props);
-    moment.locale(this.props.context.pageContext.cultureInfo.currentUICultureName);
+    //moment.locale(this.props.context.pageContext.cultureInfo.currentUICultureName);
+    moment.locale('pt-br');
+    
     this.currentPage = 1;
     this.totalPages = 1;
     this.limiter = 5;

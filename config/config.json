@@ -65,6 +65,14 @@
           "manifest": "./src/webparts/reactNews/ReactNewsWebPart.manifest.json"
         }
       ]
+    },
+    "react-calendario-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactCalendario/ReactCalendarioWebPart.js",
+          "manifest": "./src/webparts/reactCalendario/ReactCalendarioWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -77,6 +85,7 @@
     "ReactCarrosselWebPartStrings": "lib/webparts/reactCarrossel/loc/{locale}.js",
     "ReactMidiaDetailWebPartStrings": "lib/webparts/reactMidiaDetail/loc/{locale}.js",
     "ReactAniversarianteWebPartStrings": "lib/webparts/reactAniversariante/loc/{locale}.js",
-    "ReactNewsWebPartStrings": "lib/webparts/reactNews/loc/{locale}.js"
+    "ReactNewsWebPartStrings": "lib/webparts/reactNews/loc/{locale}.js",
+    "ReactCalendarioWebPartStrings": "lib/webparts/reactCalendario/loc/{locale}.js"
   }
 }

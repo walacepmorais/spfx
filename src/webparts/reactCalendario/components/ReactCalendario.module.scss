@@ -1,0 +1,33 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+@import "~react-big-calendar/lib/css/react-big-calendar.css";
+@import '~office-ui-fabric-core/dist/sass/References';
+
+@import '../../../styles/font';
+
+.reactCalendario {
+
+  .font {
+    font-family: "The Mix" !important;
+    
+    
+  }
+
+
+  .container {
+    margin: 0px auto;
+  }
+
+  .row {
+    @include ms-Grid-row;
+  }
+
+  .column {
+    @include ms-Grid-col;
+    @include ms-lg12;
+    @include ms-xl12;
+  }
+
+
+
+  
+}

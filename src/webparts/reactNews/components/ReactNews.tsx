@@ -55,7 +55,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
   constructor(props: IReactNewsProps) {
     super(props);
-    moment.locale(this.props.context.pageContext.cultureInfo.currentCultureName);
+    moment.locale('pt-br');
 
     this.currentPage = 1;
     this.service = this.props.service;

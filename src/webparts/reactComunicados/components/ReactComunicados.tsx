@@ -34,7 +34,7 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
 
   constructor(props: IReactComunicadosProps) {
     super(props);
-    moment.locale(this.props.context.pageContext.cultureInfo.currentUICultureName);
+    moment.locale('pt-br');
 
 
     this.state = { 
