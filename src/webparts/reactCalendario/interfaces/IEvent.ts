@@ -18,6 +18,7 @@ export interface IEvent extends IItem{
     Location?: string;
     EventDate?: Date;
     Categoria?: ICategoriaEvento;
+    Description?: string;
 }
 
 export interface IFilter{
@@ -27,5 +28,5 @@ export interface IFilter{
 }
 
 export interface ICategoriaEvento extends IItem{
-    cor?: string;
+    Cor?: string;
 }

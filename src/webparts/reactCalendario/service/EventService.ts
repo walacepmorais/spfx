@@ -76,7 +76,7 @@ export default class EventService{
 
     private _getCategoriaByName(name: string) : ICategoriaEvento{
         let categoria = this.categorias.filter((c) => { return c.Title === name; });
-        return categoria === undefined || categoria === null || categoria.length == 0 ? { cor: "rgb(3, 120, 124)"} : categoria[0];
+        return categoria === undefined || categoria === null || categoria.length == 0 ? { Cor: "rgb(3, 120, 124)"} : categoria[0];
     }
 
     private _getListData(filter?: IFilter): Promise<IEvent[]> {
@@ -94,6 +94,7 @@ export default class EventService{
                     "EndDate",
                     "Location",
                     "EventDate",
+                    "Description"
                     )
                 .filter(this._getFilterText(filter))
                 .expand('Localidade')
