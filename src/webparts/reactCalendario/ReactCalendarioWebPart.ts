@@ -21,10 +21,15 @@ import {
   ThemeChangedEventArgs,
   IReadonlyTheme
 } from '@microsoft/sp-component-base';
+import { DateRange } from '../../shared/services/CalendarService';
 
 export interface IReactCalendarioWebPartProps {
   description: string;
   title: string;
+  maxEvents: number;
+  maxTotal: number;
+  dateRange: DateRange;
+  cacheDuration: number;
 }
 
 export default class ReactCalendarioWebPart extends BaseClientSideWebPart<IReactCalendarioWebPartProps> {
@@ -84,6 +89,12 @@ export default class ReactCalendarioWebPart extends BaseClientSideWebPart<IReact
 
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+    const {
+      maxEvents,
+      cacheDuration,
+      maxTotal,
+    } = this.properties;
+
     return {
       pages: [
         {

@@ -114,6 +114,7 @@ export default class EventService{
     public async getLocalidades() : Promise<IItem[]>{
         return new Promise<any>(async (resolve, reject) => {
             this.localidades = await sp.web.lists.getByTitle('Localidade').items.select("Title", "ID").orderBy("Title").get<IItem[]>();
+            
             resolve(this.localidades);
         });
     }

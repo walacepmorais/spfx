@@ -73,6 +73,14 @@
           "manifest": "./src/webparts/reactCalendario/ReactCalendarioWebPart.manifest.json"
         }
       ]
+    },
+    "react-eventos-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactEventos/ReactEventosWebPart.js",
+          "manifest": "./src/webparts/reactEventos/ReactEventosWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -86,6 +94,8 @@
     "ReactMidiaDetailWebPartStrings": "lib/webparts/reactMidiaDetail/loc/{locale}.js",
     "ReactAniversarianteWebPartStrings": "lib/webparts/reactAniversariante/loc/{locale}.js",
     "ReactNewsWebPartStrings": "lib/webparts/reactNews/loc/{locale}.js",
-    "ReactCalendarioWebPartStrings": "lib/webparts/reactCalendario/loc/{locale}.js"
+    "ReactCalendarioWebPartStrings": "lib/webparts/reactCalendario/loc/{locale}.js",
+    "ReactEventosWebPartStrings": "lib/webparts/reactEventos/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }

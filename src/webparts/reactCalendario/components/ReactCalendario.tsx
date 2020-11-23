@@ -168,7 +168,7 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
   }
 
   private _getEventUrl(id){
-    return `${this.props.context.pageContext.web.absoluteUrl}/_layouts/15/Event.aspx?ListGuid=${this.listId}&ItemId=${id}`
+    return `${this.props.context.pageContext.web.absoluteUrl}/_layouts/15/Event.aspx?ListGuid=${this.listId}&ItemId=${id}`;
   }
 
   private _onSelectEvent(event: Object, e: React.SyntheticEvent){
