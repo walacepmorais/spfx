@@ -8,10 +8,6 @@
 
 .reactAniversariante {
 
-  .font {
-    font-family: "The Mix" !important;
-    
-  }
   
 
   .container {
@@ -36,21 +32,6 @@
     @include ms-lg12;
     @include ms-xl12;
     
-  }
-
-  .title {
-    @include ms-font-xl;
-    @include ms-fontColor-white;
-  }
-
-  .subTitle {
-    @include ms-font-l;
-    @include ms-fontColor-white;
-  }
-
-  .description {
-    @include ms-font-l;
-    @include ms-fontColor-white;
   }
 
   

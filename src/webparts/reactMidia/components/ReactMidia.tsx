@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './ReactMidia.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
 import { IReactMidiaProps } from './IReactMidiaProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { GridLayout } from '@pnp/spfx-controls-react/lib/GridLayout';
@@ -92,7 +93,7 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
         type={DocumentCardType.normal}        
         onClickHref={item.FileRef}
         style={{ boxShadow: DefaultEffects.elevation4 }}
-        className={styles.font}
+        className={rootStyles.content}
         >
         <DocumentCardImage height={150} imageFit={ImageFit.cover} imageSrc={item.BannerImageUrl.Url} />
 
@@ -135,9 +136,9 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
             <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              className={styles.font}
+              className={rootStyles.title}
               moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.serverRelativeUrl + "/SitePages/Publicações.aspx?categoria=Galeria"}>Ver todos</Link>
+                <Link className={rootStyles.content} href={this.props.context.pageContext.web.serverRelativeUrl + "/SitePages/Publicações.aspx?categoria=Galeria"}>Ver todos</Link>
               }
               />
           </div>
@@ -163,14 +164,14 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
                     aria-label={item.Title}
                   >
                     <DocumentCard
-                      className={styles.font}
+                      className={rootStyles.content}
                       type={DocumentCardType.normal}
                       onClickHref={item.FileRef}>
 
                       <DocumentCardPreview {...previewProps} />                      
                       <DocumentCardDetails>
                         <DocumentCardTitle
-                        className={styles.font}
+                        className={rootStyles.content}
                           title={item.Title}
                           shouldTruncate={true}
                         />
@@ -185,7 +186,7 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
                           title={item.Count + " " + item.Midia.toLowerCase()}  
                           showAsSecondaryTitle={false}
                           shouldTruncate={true}   
-                          className={styles.font}                        
+                          className={rootStyles.content}                        
                         />   
                         
                       </DocumentCardDetails>

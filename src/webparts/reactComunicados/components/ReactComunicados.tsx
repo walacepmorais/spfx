@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './ReactComunicados.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
 import { IReactComunicadosProps } from './IReactComunicadosProps';
 
 import { GridLayout } from "@pnp/spfx-controls-react/lib/GridLayout";
@@ -120,9 +121,9 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
         <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              className={styles.font}
+              className={rootStyles.title}
               moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
+                <Link className={rootStyles.content} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
               }/>
               
 

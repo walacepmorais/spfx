@@ -7,3 +7,65 @@
      src: url("/sites/catalogoapp/AppCatalog/fonts/TheMixLight-Plain.otf") format("opentype"),
      url("/sites/catalogoapp/AppCatalog/fonts/TheMixLightPlain.ttf") format("truetype");
    }
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/Roboto/Roboto-Regular.ttf ") format("truetype");
+}
+  
+ @font-face {
+  font-family: "TheMixSemiBold";
+  src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "TheMixExtraBoldPlain";
+  src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MavenRegular";
+  src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/MavenPro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "MavenMedium";
+  src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/MavenPro-Medium.ttf") format("truetype");
+}
+
+@mixin font-normal {
+  font-family: "The Mix" !important;
+}
+
+@mixin font-content {  
+  font-family: "TheMixSemiBold" !important;
+}
+
+@mixin font-title {
+  font-family: "TheMixExtraBoldPlain" !important;
+}
+
+@mixin fontMavenRegular {  
+  font-family: "MavenRegular" !important;
+}
+
+@mixin fontMavenMedium {
+  font-family: "MavenMedium" !important;
+}
+
+.title{
+  @include font-title;
+}
+
+.content{
+  @include font-content;
+}
+
+.subTitle {
+  @include font-content;
+}
+
+
+.normal{
+  @include font-normal;
+}

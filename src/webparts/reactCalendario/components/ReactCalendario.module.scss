@@ -6,13 +6,7 @@
 
 .reactCalendario {
 
-  .font {
-    font-family: "The Mix" !important;
-    
-    
-  }
-
-
+  
   .container {
     margin: 0px auto;
   }
@@ -26,6 +20,7 @@
     @include ms-lg12;
     @include ms-xl12;
   }
+
 
 
 

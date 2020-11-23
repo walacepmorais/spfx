@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './ReactMidiaDetail.module.scss';
-
+import rootStyles from '../../../styles/base.module.scss';
 
 import { IReactMidiaDetailProps } from './IReactMidiaDetailProps';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -8,7 +8,7 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { GridLayout } from '@pnp/spfx-controls-react/lib/GridLayout';
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
 import { IMidiaDetail } from '../interfaces/IMidiaDetail';
-import { ISize, Link } from 'office-ui-fabric-react';
+import { css, ISize, Link } from 'office-ui-fabric-react';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 
 import ImageGallery from 'react-image-gallery';
@@ -229,7 +229,7 @@ export default class ReactMidiaDetail extends React.Component<IReactMidiaDetailP
 
   public render() {
     return <div className={ styles.reactMidiaDetail }>
-    <div className={ styles.container }>
+    <div className={ css(styles.container,rootStyles.content) }>
       <ImageGallery
               ref={i => this._imageGallery = i}
               items={this.state.items}

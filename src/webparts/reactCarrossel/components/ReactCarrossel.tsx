@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styles from './ReactCarrossel.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
 import { IReactCarrosselProps } from './IReactCarrosselProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { Carousel, CarouselButtonsDisplay, CarouselButtonsLocation, CarouselIndicatorShape } from "@pnp/spfx-controls-react/lib/Carousel";
-import { ImageFit } from 'office-ui-fabric-react';
+import { css, ImageFit } from 'office-ui-fabric-react';
 import { IDestaque } from '../interfaces/IDestaque';
 import { ICarouselImageProps } from '@pnp/spfx-controls-react/lib/controls/carousel/CarouselImage';
 import CarrosselService from '../service/CarrosselService';
@@ -63,7 +64,7 @@ export default class ReactCarrossel extends React.Component<IReactCarrosselProps
 
     return (
       <div className={ styles.reactCarrossel }>
-        <div className={ styles.container }>
+        <div className={ css(styles.container, rootStyles.content) }>
 
           <Carousel 
             buttonsLocation={CarouselButtonsLocation.center}

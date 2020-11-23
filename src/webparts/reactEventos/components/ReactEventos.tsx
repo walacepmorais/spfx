@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from './ReactEventos.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
+
 import { IReactEventosProps } from './IReactEventosProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { IEvent } from '../../reactCalendario/interfaces/IEvent';
@@ -182,26 +184,27 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
       <div className={css(styles.calendarFeedSummary, styles.webPartChrome)} style={{ backgroundColor: semanticColors.bodyBackground }}>
         <div className={css(styles.webPartHeader, styles.headerSmMargin)}>
 
-            <WebPartTitle displayMode={this.props.displayMode}
-              className={styles.font}
+            <WebPartTitle 
+              displayMode={this.props.displayMode}              
               title={this.props.title}
               updateProperty={this.props.updateProperty}   
+              className={rootStyles.title}
               moreLink={
-                <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Eventos.aspx"}>Ver todos</Link>
+                <Link className={rootStyles.content} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Eventos.aspx"}>Ver todos</Link>
               }             
               />
         </div>
 
-        <div className={styles.content}>
+        <div className={css(styles.content, rootStyles.content)}>
 
             <Stack tokens={{ childrenGap: 20 }}>
               <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <Label className={styles.font}>{moment().format('DD/MM/YYYY')}</Label>
+                <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
                 <Dropdown
                     placeholder="Selecione uma Unidade"                  
                     options={this.state.localidades}
                     onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                    className={styles.font}
+                    className={rootStyles.content}
                   />
               </Stack>
 

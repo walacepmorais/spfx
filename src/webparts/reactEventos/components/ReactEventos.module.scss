@@ -4,9 +4,7 @@
 @import '../../../styles/font';
 
 .reactEventos {
-  .font {
-    font-family: "The Mix" !important;
-  }
+
   .container {
     margin: 0px auto;
   }
@@ -56,6 +54,7 @@
     display: flex;
     -ms-flex-align: baseline;
     align-items: baseline;
+    
   }
   
   .seeAll {
@@ -68,6 +67,8 @@
     -ms-flex-order: 2;
     order: 2;
     width: 100%;
+    
+
   }
   
   .list {

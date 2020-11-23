@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from './ReactAniversariante.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
+
 import { IReactAniversarianteProps } from './IReactAniversarianteProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { IAniversariante } from '../interfaces/IAniversariante';
@@ -244,25 +246,24 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
         <div className={ styles.container }>
           <div className={ styles.row }>
             <div className={ styles.column }>
+
             <WebPartTitle displayMode={this.props.displayMode}
-              className={styles.font}
+              className={rootStyles.title}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              // moreLink={
-              //   <Link className={styles.font} href={this.props.context.pageContext.web.absoluteUrl + "/_layouts/15/news.aspx?title=Aniversariantes&amp;newsSource=1"}>Ver todos</Link>
-              // }
+              
               />
 
               
             <Stack tokens={{ childrenGap: 10 }}>
 
             <Stack horizontal tokens={{ childrenGap: 10 }}>
-              <Label className={styles.font}>{moment().format('DD/MM/YYYY')}</Label>
+              <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
               <Dropdown
                   placeholder="Selecione uma Unidade"                  
                   options={this.state.localidades}
                   onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                  className={styles.font}
+                  className={rootStyles.content}
                 />
 
             </Stack>
@@ -274,7 +275,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
                     size={PersonaSize.size48}
                     hidePersonaDetails={false}
                     imageAlt={item.text}
-                    className={styles.font}
+                    className={rootStyles.content}
                   />
                   {item.InfoLoaded &&
                     <Stack horizontal>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './ReactCalendario.module.scss';
+import rootStyles from '../../../styles/base.module.scss';
 import { IReactCalendarioProps } from './IReactCalendarioProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
@@ -291,7 +292,7 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
             <div className={ styles.column }>
 
             <WebPartTitle displayMode={this.props.displayMode}
-              className={styles.font}
+              className={rootStyles.title}
               title={this.props.title}
               updateProperty={this.props.updateProperty}                
               />
@@ -299,12 +300,12 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
             <Stack tokens={{ childrenGap: 20 }}>
 
               <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <Label className={styles.font}>{moment().format('DD/MM/YYYY')}</Label>
+                <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
                 <Dropdown
                     placeholder="Selecione uma Unidade"                  
                     options={this.state.localidades}
                     onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                    className={styles.font}
+                    className={rootStyles.content}
                   />
 
               </Stack>
