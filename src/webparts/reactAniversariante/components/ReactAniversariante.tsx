@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './ReactAniversariante.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+
+import '../../../styles/base.module.scss';
 
 import { IReactAniversarianteProps } from './IReactAniversarianteProps';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -248,7 +249,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
             <div className={ styles.column }>
 
             <WebPartTitle displayMode={this.props.displayMode}
-              className={rootStyles.title}
+              className="title"
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
               
@@ -258,12 +259,12 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
             <Stack tokens={{ childrenGap: 10 }}>
 
             <Stack horizontal tokens={{ childrenGap: 10 }}>
-              <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
+              <Label className="content">{moment().format('DD/MM/YYYY')}</Label>
               <Dropdown
                   placeholder="Selecione uma Unidade"                  
                   options={this.state.localidades}
                   onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                  className={rootStyles.content}
+                  className="content"
                 />
 
             </Stack>
@@ -275,10 +276,10 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
                     size={PersonaSize.size48}
                     hidePersonaDetails={false}
                     imageAlt={item.text}
-                    className={rootStyles.content}
+                    className="content"
                   />
                   {item.InfoLoaded &&
-                    <Stack horizontal>
+                    <Stack horizontal className="content">
 
                       {this.state.isLinking && this.state.userName === item.UserName
                       ?
@@ -288,7 +289,6 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
                         Curtir ({item.Likes})
                       </ActionButton>
                       }
-
                       <ActionButton iconProps={item.IsCommented ? this.commentedIcon : this.commentIcon} allowDisabledFocus href={item.PageUrl} target="_blank" title="Comentar"> 
                         Comentar ({item.Comments})
                       </ActionButton>
@@ -309,8 +309,6 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
               hideLastPageJump // Optional
               limiterIcon={"Emoji12"} // Optional
             />
-
-
 
             </div>
           </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './ReactNews.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+import '../../../styles/base.module.scss';
 import { IReactNewsProps } from './IReactNewsProps';
 import * as moment from 'moment';
 import { INew, INewsResult, IItem, IFilter } from '../interfaces/INews';
@@ -281,9 +281,9 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
         }
 
         <DocumentCardDetails>
-          <DocumentCardTitle title={item.Title}  className={rootStyles.content}/>
-          <DocumentCardTitle title={item.Description} shouldTruncate showAsSecondaryTitle className={rootStyles.content}/>
-          <DocumentCardTitle title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')} showAsSecondaryTitle className={rootStyles.content}/>
+          <DocumentCardTitle title={item.Title}  className="content"/>
+          <DocumentCardTitle title={item.Description} shouldTruncate showAsSecondaryTitle className="content"/>
+          <DocumentCardTitle title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')} showAsSecondaryTitle className="content"/>
           {/* <DocumentCardTitle title={`${item.ViewsLifeTime} visualizações`} shouldTruncate showAsSecondaryTitle/> */}
           
         </DocumentCardDetails>
@@ -316,19 +316,19 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
           <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              className={rootStyles.title}
+              className="title"
               
               />
 
             {!this.state.specificSearch &&
               <Stack tokens={stackTokensVertical} >
-                <Stack horizontal tokens={stackTokens} className={rootStyles.content}>
+                <Stack horizontal tokens={stackTokens} className="content">
                   <Dropdown
                       placeholder="Selecione uma categoria"
                       label="Categorias"
                       options={this.state.categorias}
                       styles={dropdownStyles}
-                      className={rootStyles.content}
+                      className="content"
                       onChange={(event, option, index) => { this._onCategoriaChanged(event, option, index); }}
                     />
                     
@@ -338,25 +338,25 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
                           label="Tipos"
                           options={this.state.tiposComunicado}
                           styles={dropdownStyles}
-                          className={rootStyles.content}
+                          className="content"
                           onChange={(event, option, index) => { this._onTipoComunicadoChanged(event, option, index); }}
                         />
                     }
 
                     {this.state.showMidiaFilter &&
                       <Stack tokens={stackTokensCheckbox}>
-                        <Label className={rootStyles.content}>Mídias</Label>
-                        <Checkbox label="Imagem" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeImagemMidia(event);}} className={rootStyles.content}/>
-                        <Checkbox label="Vídeo" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeVideoMidia(event);}}  className={rootStyles.content}/>
+                        <Label className="content">Mídias</Label>
+                        <Checkbox label="Imagem" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeImagemMidia(event);}} className="content"/>
+                        <Checkbox label="Vídeo" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { this._changeVideoMidia(event);}}  className="content"/>
                       </Stack>
 
                     }
                   
                 </Stack>
 
-                <Stack horizontal tokens={stackTokensVertical} className={rootStyles.content}>
+                <Stack horizontal tokens={stackTokensVertical} className="content">
                   <PrimaryButton
-                  className={rootStyles.content}
+                  className="content"
                       text="Filtrar"
                       iconProps={filterIcon}
                       onClick={() => { this._filter(); }}
@@ -371,7 +371,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
                          
             <br></br>
 
-              <Stack className={rootStyles.content}
+              <Stack className="content"
                 tokens={{ childrenGap: 20 }}
                 >
                 {this.state.news.map((item: INew, _index: number) => {
@@ -384,11 +384,11 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
               <div className={styles.center}>
 
-              <ActionButton className={rootStyles.content} iconProps={previousIcon} allowDisabledFocus  onClick={() => { this._getPrevious(); }} disabled={!this.state.hasPrevious} >
+              <ActionButton className="content" iconProps={previousIcon} allowDisabledFocus  onClick={() => { this._getPrevious(); }} disabled={!this.state.hasPrevious} >
               Anterior
               </ActionButton>
 
-              <ActionButton className={rootStyles.content} iconProps={nextIcon} allowDisabledFocus onClick={() => {this._getNext(); }} disabled={!this.state.hasNext} 
+              <ActionButton className="content" iconProps={nextIcon} allowDisabledFocus onClick={() => {this._getNext(); }} disabled={!this.state.hasNext} 
               styles={{flexContainer: {
                 flexDirection: 'row-reverse'
               }}}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './ReactCalendario.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+import '../../../styles/base.module.scss';
+
 import { IReactCalendarioProps } from './IReactCalendarioProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { WebPartTitle } from '@pnp/spfx-controls-react/lib/WebPartTitle';
@@ -292,7 +293,7 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
             <div className={ styles.column }>
 
             <WebPartTitle displayMode={this.props.displayMode}
-              className={rootStyles.title}
+              className="title"
               title={this.props.title}
               updateProperty={this.props.updateProperty}                
               />
@@ -300,33 +301,34 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
             <Stack tokens={{ childrenGap: 20 }}>
 
               <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
+                <Label className="content">{moment().format('DD/MM/YYYY')}</Label>
                 <Dropdown
                     placeholder="Selecione uma Unidade"                  
                     options={this.state.localidades}
                     onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                    className={rootStyles.content}
+                    className="content"
                   />
 
               </Stack>
             
               <Calendar
-                    localizer={this.localizer}
-                    events={this.state.events}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    views={["month"]}
-                    onRangeChange={(range,view ) => this._onRangeChange(range,view )}
-                    onSelectEvent={(event,e ) => this._onSelectEvent(event,e )}
-                    eventPropGetter={(this._eventStyleGetter)}
-                    components={{
-                      event: this.Event,
-                      agenda: {
-                        event: this.EventAgenda
-                      }
-                    }}
-                  />
+                  className="content"
+                  localizer={this.localizer}
+                  events={this.state.events}
+                  startAccessor="start"
+                  endAccessor="end"
+                  style={{ height: 500 }}
+                  views={["month"]}
+                  onRangeChange={(range,view ) => this._onRangeChange(range,view )}
+                  onSelectEvent={(event,e ) => this._onSelectEvent(event,e )}
+                  eventPropGetter={(this._eventStyleGetter)}
+                  components={{
+                    event: this.Event,
+                    agenda: {
+                      event: this.EventAgenda
+                    }
+                  }}
+                />
 
             </Stack>
 

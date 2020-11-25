@@ -1,8 +1,6 @@
 @import "~office-ui-fabric-react/dist/sass/References.scss";
 @import '~office-ui-fabric-core/dist/sass/References';
 
-@import '../../../styles/font';
-
 .reactComunicados {
   .font {
     font-family: "The Mix" !important;
@@ -23,7 +21,7 @@
 
   .column12 {
     @include ms-Grid-col;
-    @include ms-lg4;    
+    @include ms-lg12;    
   }
 
   .column4 {
@@ -46,5 +44,19 @@
     @include ms-fontColor-white;
   }
 
+  .column6{
+    @include ms-Grid-col;
+    @include ms-lg6;
+  }
+
+  .documentTile {
+    background-color: transparent;
+    outline: transparent;
+    position: relative;
+  }
+  
+  .titleDataPublicacao{    
+    height: 20px;
+  }
   
 }

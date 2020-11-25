@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './ReactMidiaDetail.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+import '../../../styles/base.module.scss';
 
 import { IReactMidiaDetailProps } from './IReactMidiaDetailProps';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -229,7 +229,7 @@ export default class ReactMidiaDetail extends React.Component<IReactMidiaDetailP
 
   public render() {
     return <div className={ styles.reactMidiaDetail }>
-    <div className={ css(styles.container,rootStyles.content) }>
+    <div className={ css(styles.container, "content") }>
       <ImageGallery
               ref={i => this._imageGallery = i}
               items={this.state.items}

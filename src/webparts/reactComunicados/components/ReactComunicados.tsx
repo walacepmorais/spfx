@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './ReactComunicados.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+import '../../../styles/base.module.scss';
 import { IReactComunicadosProps } from './IReactComunicadosProps';
 
 import { GridLayout } from "@pnp/spfx-controls-react/lib/GridLayout";
@@ -104,7 +104,6 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
           />         
           
         </DocumentCardDetails>
-
         
       </DocumentCard>
     </div>;
@@ -121,17 +120,70 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
         <WebPartTitle displayMode={this.props.displayMode}
               title={this.props.title}
               updateProperty={this.props.updateProperty} 
-              className={rootStyles.title}
+              className="title"
               moreLink={
-                <Link className={rootStyles.content} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
+                <Link className="content" href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
               }/>
               
 
-        <GridLayout
+        {/* <GridLayout
             ariaLabel="Comunicados"
             items={this.state.items}
             onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}
-          />
+          /> */}
+
+          <div className={ styles.row }>
+
+          {this.state.items.map((item: IComunicado, _index: number) => {
+            const previewProps: IDocumentCardPreviewProps = {
+              previewImages: [
+                {
+                  previewImageSrc: item.BannerImageUrl.Url,
+                  imageFit: ImageFit.cover,
+                  height: 154
+                }
+              ]
+            };
+
+            return <div className={ styles.column6 }>
+              <div
+                className={styles.documentTile}
+                data-is-focusable={true}
+                role="listitem"
+                aria-label={item.Title}
+              >
+                <DocumentCard
+                  type={ DocumentCardType.normal}        
+                  onClickHref={item.FileRef}
+                  style={{ boxShadow: DefaultEffects.elevation4 }}
+                  className="content"
+                >
+                  <DocumentCardPreview {...previewProps} />
+
+                  <DocumentCardDetails>
+                    <DocumentCardTitle
+                      title={item.Title}
+                      shouldTruncate={true}
+                      className="content"
+                    />   
+                    <DocumentCardTitle
+                    className="content"
+                      title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')}  
+                      showAsSecondaryTitle={true}
+                      shouldTruncate={true}
+                    />         
+                    
+                  </DocumentCardDetails>
+
+                  
+                </DocumentCard>
+              </div>
+              </div>;
+
+          })}
+
+
+          </div>
 
         </div>
       </div>

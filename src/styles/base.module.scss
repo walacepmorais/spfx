@@ -1,52 +1,67 @@
-@font-face {
-    font-family: "The Mix";
-    src: url("/sites/catalogoapp/AppCatalog/fonts/TheMixLight-Plain.otf") format("opentype"),
-    url("/sites/catalogoapp/AppCatalog/fonts/TheMixLightPlain.ttf") format("truetype");
-  }
 
 @font-face {
- font-family: "Roboto";
- src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/Roboto/Roboto-Regular.ttf ") format("truetype");
-}
- 
-@font-face {
- font-family: "TheMixSemiBold";
- src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain.otf") format("opentype");
-}
-
-@font-face {
- font-family: "TheMixExtraBoldPlain";
- src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain.otf") format("opentype");
+  font-family: 'The Mix Semi Bold';
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.eot');
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.eot?#iefix') format('embedded-opentype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.woff2') format('woff2'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.woff') format('woff'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.ttf') format('truetype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixSemiBold-Plain/TheMixSemiBold-Plain.svg#TheMixSemiBold-Plain') format('svg');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
- font-family: "MavenRegular";
- src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/MavenPro-Regular.ttf") format("truetype");
+  font-family: 'The Mix Extra Bold';
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.eot');
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.eot?#iefix') format('embedded-opentype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.woff2') format('woff2'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.woff') format('woff'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.ttf') format('truetype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixExtraBold-Plain/TheMixExtraBold-Plain.svg#TheMixExtraBold-Plain') format('svg');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-   font-family: "MavenMedium";
- src: url("/sites/catalogoapp/AppCatalog/fonts/intranet/MavenPro-Medium.ttf") format("truetype");
+  font-family: 'The Mix Bold';
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.eot');
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.eot?#iefix') format('embedded-opentype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.woff2') format('woff2'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.woff') format('woff'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.ttf') format('truetype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixBold-Plain/TheMixBold-Plain.svg#TheMixBold-Plain') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: 'The Mix Light';
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.eot');
+  src: url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.eot?#iefix') format('embedded-opentype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.woff2') format('woff2'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.woff') format('woff'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.ttf') format('truetype'),
+      url('/sites/catalogoapp/AppCatalog/fonts/intranet/TheMixLight-Plain/TheMixLight-Plain.svg#TheMixLight-Plain') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 @mixin font-normal {
- font-family: "The Mix" !important;
+  font-family: "The Mix Light" !important;
 }
 
 @mixin font-content {  
- font-family: "TheMixSemiBold" !important;
+  font-family: "The Mix Semi Bold" !important;
 }
 
 @mixin font-title {
- font-family: "TheMixExtraBoldPlain" !important;
-}
-
-@mixin fontMavenRegular {  
- font-family: "MavenRegular" !important;
-}
-
-@mixin fontMavenMedium {
- font-family: "MavenMedium" !important;
+  font-family: "The Mix Extra Bold" !important;
 }
 
 .base {

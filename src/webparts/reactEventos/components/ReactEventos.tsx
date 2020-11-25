@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from './ReactEventos.module.scss';
-import rootStyles from '../../../styles/base.module.scss';
+import '../../../styles/base.module.scss';
 
 import { IReactEventosProps } from './IReactEventosProps';
 import { escape } from '@microsoft/sp-lodash-subset';
@@ -188,23 +188,23 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
               displayMode={this.props.displayMode}              
               title={this.props.title}
               updateProperty={this.props.updateProperty}   
-              className={rootStyles.title}
+              className="title"
               moreLink={
-                <Link className={rootStyles.content} href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Eventos.aspx"}>Ver todos</Link>
+                <Link className="content" href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Eventos.aspx"}>Ver todos</Link>
               }             
               />
         </div>
 
-        <div className={css(styles.content, rootStyles.content)}>
+        <div className={css(styles.content, "content")}>
 
             <Stack tokens={{ childrenGap: 20 }}>
               <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <Label className={rootStyles.content}>{moment().format('DD/MM/YYYY')}</Label>
+                <Label className="content">{moment().format('DD/MM/YYYY')}</Label>
                 <Dropdown
                     placeholder="Selecione uma Unidade"                  
                     options={this.state.localidades}
                     onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
-                    className={rootStyles.content}
+                    className="content"
                   />
               </Stack>
 
