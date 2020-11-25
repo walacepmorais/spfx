@@ -1,0 +1,36 @@
+@import '~office-ui-fabric-react/dist/sass/References.scss';
+
+.reactTiles {
+  .container {
+    
+    margin: 0px auto;
+   
+  }
+
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+   
+  }
+
+  .column {
+    @include ms-Grid-col;
+    @include ms-lg12;    
+  }
+
+  
+  .message {
+    @include ms-font-m;
+  }
+
+  .error {
+    @include ms-font-m;
+    color: $ms-color-alert;
+  }
+
+  .tilesList {
+    @include ms-Grid-row;
+    display: block;
+    flex-wrap: wrap;
+  }
+}

@@ -3,7 +3,7 @@
   "solution": {
     "name": "cibra-spfx-client-side-solution",
     "id": "840c0491-f8b8-48a3-bffa-f1623ba0a422",
-    "version": "1.0.0.0",
+    "version": "0.0.4.0",
     "includeClientSideAssets": true,
     "isDomainIsolated": false,
     "developer": {

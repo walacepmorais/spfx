@@ -81,6 +81,14 @@
           "manifest": "./src/webparts/reactEventos/ReactEventosWebPart.manifest.json"
         }
       ]
+    },
+    "react-tiles-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactTiles/ReactTilesWebPart.js",
+          "manifest": "./src/webparts/reactTiles/ReactTilesWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -96,6 +104,7 @@
     "ReactNewsWebPartStrings": "lib/webparts/reactNews/loc/{locale}.js",
     "ReactCalendarioWebPartStrings": "lib/webparts/reactCalendario/loc/{locale}.js",
     "ReactEventosWebPartStrings": "lib/webparts/reactEventos/loc/{locale}.js",
-    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
+    "ReactTilesWebPartStrings": "lib/webparts/reactTiles/loc/{locale}.js"
   }
 }
