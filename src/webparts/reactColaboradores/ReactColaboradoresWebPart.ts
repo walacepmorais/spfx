@@ -7,27 +7,22 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
-import * as strings from 'ReactAniversarianteWebPartStrings';
-import ReactAniversariante from './components/ReactAniversariante';
-import { IReactAniversarianteProps } from './components/IReactAniversarianteProps';
-
-import { sp } from "@pnp/sp";
-import AniversarianteService from './service/AniversarianteService';
-
+import * as strings from 'ReactColaboradoresWebPartStrings';
+import ReactColaboradores from './components/ReactColaboradores';
+import { IReactColaboradoresProps } from './components/IReactColaboradoresProps';
 import {
   ThemeProvider,
   ThemeChangedEventArgs,
   IReadonlyTheme
 } from '@microsoft/sp-component-base';
 
-export interface IReactAniversarianteWebPartProps {
+export interface IReactColaboradoresWebPartProps {
+  pageUrl: string;
   description: string;
   title: string;
 }
 
-export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IReactAniversarianteWebPartProps> {
-
-  private service : AniversarianteService;
+export default class ReactColaboradoresWebPart extends BaseClientSideWebPart<IReactColaboradoresWebPartProps> {
   private _themeProvider: ThemeProvider;
   private _themeVariant: IReadonlyTheme | undefined;
 
@@ -36,47 +31,37 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
     this.render();
   }
 
-  public onInit(): Promise<void> {
-
-    this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
-    this._themeVariant = this._themeProvider.tryGetTheme();
-    this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
-
-    return super.onInit().then(_ => {
-
-      sp.setup({
-        spfxContext: this.context
-      });
-
-      this.service = new AniversarianteService(this.context.pageContext.web.serverRelativeUrl);
-
-    });
-  }
-
   public render(): void {
-    const element: React.ReactElement<IReactAniversarianteProps> = React.createElement(
-      ReactAniversariante,
+    const element: React.ReactElement<IReactColaboradoresProps> = React.createElement(
+      ReactColaboradores,
       {
         description: this.properties.description,
-        service: this.service,
-        context: this.context,
         title: this.properties.title,
         displayMode:this.displayMode,
         updateProperty: (value:string) => {
           this.properties.title=value;
         },
-        themeVariant: this._themeVariant
+        themeVariant: this._themeVariant,
+        context: this.context,
+        pageUrl : this.properties.pageUrl,
       }
     );
 
     ReactDom.render(element, this.domElement);
   }
 
+  public onInit(): Promise<void> {
+
+    this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
+    this._themeVariant = this._themeProvider.tryGetTheme();
+    this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
+
+    return super.onInit();
+  }
+
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
   }
-
- 
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -91,6 +76,9 @@ export default class ReactAniversarianteWebPart extends BaseClientSideWebPart<IR
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('pageUrl', {
+                  label: strings.PageUrlFieldLabel
                 })
               ]
             }

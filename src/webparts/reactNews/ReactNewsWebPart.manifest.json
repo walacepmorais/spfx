@@ -12,11 +12,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
     "group": { "default": "Other" },
-    "title": { "default": "News - Página de listagem" },
-    "description": { "default": "News - React WebPart" },
+    "title": { "default": "Cibra - News" },
+    "description": { "default": "Cibra - News" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "News - Página de listagem"
+      "description": "Cibra - News - Listagem"
     }
   }]
 }

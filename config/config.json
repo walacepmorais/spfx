@@ -89,6 +89,14 @@
           "manifest": "./src/webparts/reactTiles/ReactTilesWebPart.manifest.json"
         }
       ]
+    },
+    "react-colaboradores-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactColaboradores/ReactColaboradoresWebPart.js",
+          "manifest": "./src/webparts/reactColaboradores/ReactColaboradoresWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -105,6 +113,7 @@
     "ReactCalendarioWebPartStrings": "lib/webparts/reactCalendario/loc/{locale}.js",
     "ReactEventosWebPartStrings": "lib/webparts/reactEventos/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
-    "ReactTilesWebPartStrings": "lib/webparts/reactTiles/loc/{locale}.js"
+    "ReactTilesWebPartStrings": "lib/webparts/reactTiles/loc/{locale}.js",
+    "ReactColaboradoresWebPartStrings": "lib/webparts/reactColaboradores/loc/{locale}.js"
   }
 }

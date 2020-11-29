@@ -14,8 +14,8 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
-    "title": { "default": "Home - Mídia" },
-    "description": { "default": "Home - Midia" },
+    "title": { "default": "Cibra - Home - Mídia" },
+    "description": { "default": "Cibra - Home - Midia" },
     "officeFabricIconFontName": "Page",
     "properties": {
       "description": "Home - Mídia"

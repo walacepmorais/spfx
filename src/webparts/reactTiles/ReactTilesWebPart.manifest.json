@@ -15,11 +15,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
-    "title": { "default": "Home - Tiles" },
-    "description": { "default": "Home - Tiles" },
+    "title": { "default": "Cibra - Home - Tiles" },
+    "description": { "default": "Cibra - Home - Tiles" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Home - Tiles"
+      "description": "Cibra - Home - Tiles"
     }
   }]
 }

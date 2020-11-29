@@ -15,8 +15,8 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
-    "title": { "default": "Home - Aniversariante" },
-    "description": { "default": "Home - Aniversariante" },
+    "title": { "default": "Cibra - Home - Aniversariante" },
+    "description": { "default": "Cibra - Home - Aniversariante" },
     "officeFabricIconFontName": "Page",
     "properties": {
       "description": "Home - Aniversariante"

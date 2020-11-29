@@ -15,8 +15,8 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
-    "title": { "default": "Home - Comunicados" },
-    "description": { "default": "Home - Comunicados" },
+    "title": { "default": "Cibra - Home - Comunicados" },
+    "description": { "default": "Cibra - Home - Comunicados" },
     "officeFabricIconFontName": "Page",
     "properties": {
       "description": "Home - Comunicados"

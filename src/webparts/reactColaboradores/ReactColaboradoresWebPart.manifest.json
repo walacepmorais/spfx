@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "fbe3616f-84e2-4cd2-8c7a-3aa532ad032c",
-  "alias": "ReactCalendarioWebPart",
+  "id": "c6de3707-4eb7-4689-9822-4a038d37cb7d",
+  "alias": "ReactColaboradoresWebPart",
   "componentType": "WebPart",
 
   "version": "*",
@@ -15,11 +15,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
-    "title": { "default": "Cibra - Calendário de Eventos" },
-    "description": { "default": "Cibra - Calendário de Eventos" },
+    "title": { "default": "Cibra - Home - Colaboradores" },
+    "description": { "default": "Cibra - Home - Colaboradores" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Calendário de Eventos"
+      "description": "Cibra - Home - Colaboradores"
     }
   }]
 }

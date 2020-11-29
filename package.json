@@ -9,8 +9,7 @@
   "scripts": {
     "build": "gulp bundle",
     "clean": "gulp clean",
-    "test": "gulp test",
-    "postversion": "gulp version-sync"
+    "test": "gulp test"
   },
   "dependencies": {
     "@fluentui/react": "^7.147.1",
