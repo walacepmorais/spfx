@@ -1,0 +1,143 @@
+@import "~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss";
+
+.holerite{
+
+  .content{
+
+    .row{
+      background-color: white; 
+      padding: 20px 20px; 
+      font-family: Calibri;
+    }
+
+    .table{
+      width: 100%;
+
+      .noborder {
+          td {
+          font-size: 14px;
+          padding-top: 4px;
+          padding-bottom: 4px;
+        }
+      }
+
+      .dados {
+        
+
+        td{
+          border-top: none !important;
+          border-right: 1px solid #ddd !important;
+          border-bottom: 1px solid #ddd !important;
+          padding: 5px 20px;
+
+          span {
+            font-size: 12px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+          }
+
+        }
+      }
+
+      .title {
+          text-transform: uppercase;
+          font-weight: bold;
+      }
+
+      .logo{
+        background-color: #dddddd;
+      }
+
+      .demonstrativo{
+        font-weight:bold; vertical-align:middle;text-align:right;background-color: #dddddd;
+      }
+    }
+
+    .rubrica {
+      //border: 1px solid #dddddd;
+
+      .row{
+        background-color: white; padding: 20px 20px;
+      }
+
+      .table{
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #dddddd;
+
+        thead {
+          background-color: #dddddd;
+        }
+
+        thead  { 
+          tr { 
+            th {
+              border: 0px;
+              text-align: center;
+              font-size: 14px;
+              padding-top: 4px;
+              padding-bottom: 4px;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              border: 1px solid #dddddd;
+              text-align: center;
+              font-size: 12px;
+              padding-top: 4px;
+              padding-bottom: 4px;
+              font-weight: bold;
+              font-family: "Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
+            }
+          }
+        }
+
+        tfoot {
+          tr {
+            td {
+              text-align: center;
+              font-size: 14px;
+              padding-top: 4px;
+              padding-bottom: 4px;
+              font-weight: bold;
+              font-family: "Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
+              border-top: 1px solid #ddd;
+
+              span{
+                text-align: center;
+                font-size: 12px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+              }
+
+            }
+          }
+        }
+        
+        
+
+        // tfoot tr td span.liquido, 
+        // tfoot tr td span.totalProventos, 
+        // tfoot tr td span.totalDescontos, 
+        // tfoot tr td span.dr, 
+        // tfoot tr td span.dsf, 
+        // tfoot tr td span.fgtsMes, 
+        // tfoot tr td span.salarioContribuicao {
+        //   text-align: center;
+        //   font-size: 12px;
+        //   padding-top: 4px;
+        //   padding-bottom: 4px;
+        // }
+      }
+
+    }
+
+  }
+
+
+
+
+}

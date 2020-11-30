@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "3d704f17-4845-4340-b458-c7e98b098477",
+  "alias": "ReactHoleriteWebPart",
+  "componentType": "WebPart",
+
+  "version": "*",
+  "manifestVersion": 2,
+
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart"],
+
+  "supportsThemeVariants": true,
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "group": { "default": "Other" },
+    "title": { "default": "Cibra - Holerite" },
+    "description": { "default": "Cibra - Holerite" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Cibra - Holerite"
+    }
+  }]
+}

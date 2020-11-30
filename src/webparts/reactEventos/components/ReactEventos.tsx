@@ -41,6 +41,7 @@ export interface IReactEventosState{
   error: any|undefined;
   isLoading: boolean;
   currentPage: number;
+  localidadeId: string | number;
 }
 
 const CacheKey: string = "reactEventos";
@@ -59,7 +60,8 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
       localidades: [],
       isLoading: false,
       error: undefined,
-      currentPage: 1
+      currentPage: 1,
+      localidadeId: 0
     };
 
     this.props.eventService.getEventListId().then((id) =>{
@@ -101,16 +103,20 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
       });
 
       sp.profiles.myProperties.get().then((currentUser) => {
-      this.localidade = currentUser.UserProfileProperties.find(item => item.Key === "Office").Value;
-  
-  
+        this.localidade = currentUser.UserProfileProperties.find(item => item.Key === "Office").Value;
+
+        const localidades = this.state.localidades.filter(x => x.text == this.localidade);
+        this.setState({
+          localidadeId : localidades.length > 0 ? localidades[0].key : 0
+        });
+    
         let filter : IFilter = {
           localidade: this.localidade,
-          eventRange: this.props.eventRange
+          eventRange: this.props.eventRange,            
         };
   
         this._filter(filter);
-  
+    
       });
 
   }
@@ -141,41 +147,6 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
 
   }
 
-  private _onRenderGridItem = (item: ICalendarEvent, _index: number): JSX.Element => {
-
-
-    const previewProps: IDocumentCardPreviewProps = {
-      previewImages: [
-        {
-          previewImageSrc: item.bannerImageUrl ? item.bannerImageUrl.Url : "",
-          imageFit: ImageFit.centerCover,
-          height: 48,
-          width: 48
-        }
-      ]
-    };
-
-    let start = moment(item.start).format('DD/MM/YYYY HH:mm');
-    let end = moment(item.end).format('DD/MM/YYYY HH:mm');
-    let day = moment(item.start).format('ddd');
-
-    return <div className={styles.documentTile} data-is-focusable={true} role="listitem" aria-label={item.title}>
-        <DocumentCard
-        type={DocumentCardType.compact }
-        onClickHref={this._getEventUrl(item.id)}
-      >
-
-        <DocumentCardPreview {...previewProps} />
-        <DocumentCardDetails>
-          <DocumentCardTitle title={item.title} shouldTruncate={true} />
-          <ActivityItem activityDescription={day + ' ' + start + ' - ' + end}></ActivityItem>
-        </DocumentCardDetails>
-
-      </DocumentCard>
-    </div>;
-  }
-
- 
 
   public render(): React.ReactElement<IReactEventosProps> {
     const { semanticColors }: IReadonlyTheme = this.props.themeVariant;
@@ -206,6 +177,7 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
                     options={this.state.localidades}
                     onChange={(event, option, index) => { this._onLocalidadeChanged(event, option, index); }}
                     className="content"
+                    selectedKey={this.state.localidadeId}
                   />
               </Stack>
 

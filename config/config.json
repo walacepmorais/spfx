@@ -97,6 +97,14 @@
           "manifest": "./src/webparts/reactColaboradores/ReactColaboradoresWebPart.manifest.json"
         }
       ]
+    },
+    "react-holerite-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/reactHolerite/ReactHoleriteWebPart.js",
+          "manifest": "./src/webparts/reactHolerite/ReactHoleriteWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -114,6 +122,7 @@
     "ReactEventosWebPartStrings": "lib/webparts/reactEventos/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
     "ReactTilesWebPartStrings": "lib/webparts/reactTiles/loc/{locale}.js",
-    "ReactColaboradoresWebPartStrings": "lib/webparts/reactColaboradores/loc/{locale}.js"
+    "ReactColaboradoresWebPartStrings": "lib/webparts/reactColaboradores/loc/{locale}.js",
+    "ReactHoleriteWebPartStrings": "lib/webparts/reactHolerite/loc/{locale}.js"
   }
 }

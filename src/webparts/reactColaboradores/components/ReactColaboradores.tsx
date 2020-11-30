@@ -29,8 +29,6 @@ export default class ReactColaboradores extends React.Component<IReactColaborado
 
     const { semanticColors }: IReadonlyTheme = this.props.themeVariant;
     
-    console.log(semanticColors);
-
     return (
       <div className={ styles.reactColaboradores } style={{backgroundColor: semanticColors.bodyBackground, color: semanticColors.bodyText}}>
         <div className={ styles.container }>
