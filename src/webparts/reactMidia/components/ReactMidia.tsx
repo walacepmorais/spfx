@@ -147,6 +147,11 @@ export default class ReactMidia extends React.Component<IReactMidiaProps, IReact
         <div className={ styles.row }>
 
               {this.state.items.map((item: IMidia, _index: number) => {
+
+                if(item == null || item == undefined){
+                  return <div/>;
+                }
+
                 const previewProps: IDocumentCardPreviewProps = {
                   previewImages: [
                     {

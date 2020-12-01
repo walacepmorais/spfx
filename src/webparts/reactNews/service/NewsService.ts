@@ -83,8 +83,9 @@ export default class NewsService{
         return new Promise<any>(async (resolve, reject) => {
             let categorias = await sp.web.lists.getByTitle('Tipo Comunicado')
                 .items
-                .filter(`Categoria eq ${categoria}`)
-                .select("Title", "ID")
+                .filter(`Categoria/Title eq '${categoria}'`)
+                .expand('Categoria')
+                .select("Title", "ID", "Categoria/Title", "Categoria/Id")
                 .orderBy("Title")
                 .get<IItem>();
             resolve(categorias);
