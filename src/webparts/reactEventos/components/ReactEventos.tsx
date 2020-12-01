@@ -149,8 +149,7 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
 
 
   public render(): React.ReactElement<IReactEventosProps> {
-    const { semanticColors }: IReadonlyTheme = this.props.themeVariant;
-    console.log(semanticColors);
+    const { semanticColors }: IReadonlyTheme = this.props.themeVariant;    
 
     return (
       <div className={css(styles.calendarFeedSummary, styles.webPartChrome)} style={{ backgroundColor: semanticColors.bodyBackground }}>
