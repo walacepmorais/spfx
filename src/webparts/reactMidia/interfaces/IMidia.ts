@@ -12,7 +12,6 @@ export interface IUrl{
 
 export interface IMidia extends IItem{    
     FileRef?: string;        
-    
     BannerImageUrl?: IUrl;
     FirstPublishedDate?: string;
     Count?: number;

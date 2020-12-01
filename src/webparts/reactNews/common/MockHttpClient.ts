@@ -32,12 +32,9 @@ export default class MockHttpClient  {
     public static getPageExample(page: number): INewsResult {
         if(this.news.length == 0) this.getExample();
         this.page = page;
-            console.log(page);
         
             let start = (this.page -1) * this.pageSize;
             let end = start + this.pageSize;
-            console.log(start, end);
-
             let slice = this.news.slice(start, end);
 
             let listData: INewsResult = {

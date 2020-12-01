@@ -160,7 +160,6 @@ export default class ReactHolerite extends React.Component<IReactHoleriteProps, 
     
     const debug = this.queryParameters.getValue('debug') == "true";
             
-    // console.log(consulta);
 
     if(debug){
       consulta = {
@@ -276,7 +275,6 @@ export default class ReactHolerite extends React.Component<IReactHoleriteProps, 
 
  private _getCurrency(value)
   {
-    //console.log(value);
 
     var retorno = value;
     if(retorno !== undefined && retorno !== "")

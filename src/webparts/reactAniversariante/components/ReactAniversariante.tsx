@@ -95,7 +95,6 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
   this.props.service
   .getAniversariantesInfo(this.aniversariantes)
   .then((aniversariantes) => {
-    console.log(aniversariantes);
     this.filteredAniversariantes = aniversariantes;
 
     reactHandler.setState({
@@ -140,7 +139,6 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     this.props.service.get()
         .then((data) => {
           
-        console.log(data);
         this.aniversariantes = data            
           .map<IAniversariante>((aniversariante) => {
             aniversariante.imageUrl = aniversariante.PictureURL;
@@ -175,11 +173,9 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     var reactHandler = this;
 
     this.currentPage = page;
-    console.log(page);
 
     let start = (this.currentPage -1) * this.limiter;
     let end = start + this.limiter;
-    console.log(start, end);
 
     let slice = this.filteredAniversariantes.slice(start, end);    
     this.totalPages = Math.ceil(this.filteredAniversariantes.length / this.limiter);

@@ -61,17 +61,15 @@ export default class ComunicadoService{
             "Id",
             "Title",
             "FileRef",
-            "Categoria/Id",
-            "Categoria/Title",
-            "TipoComunicado/Id",
-            "TipoComunicado/Title",
+            "Categoria",
+            "TipoComunicado",
             "BannerImageUrl",
             "Created",
             "Modified",
             "FieldValuesAsText/MetaInfo",
             "FirstPublishedDate")
-        .expand("TipoComunicado","Categoria","FieldValuesAsText")
-        .filter("Categoria/Title eq 'Comunicados' and TipoComunicado/Title eq '"+ tipoComunicado +"'")
+        .expand("FieldValuesAsText")
+        .filter("Categoria eq 'Comunicados' and TipoComunicado eq '"+ tipoComunicado +"'")
         .top(1)
         .orderBy("Modified", false)
         .get().then((data) => {

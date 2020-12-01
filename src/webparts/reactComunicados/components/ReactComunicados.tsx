@@ -66,48 +66,6 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
   }
 
 
-  private _onRenderGridItem = (item: IComunicado, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    const previewProps: IDocumentCardPreviewProps = {
-      previewImages: [
-        {
-          previewImageSrc: item.BannerImageUrl ? item.BannerImageUrl.Url : "",
-          imageFit: ImageFit.cover,
-          height: 154
-        }
-      ]
-    };
-
-    return <div
-      data-is-focusable={true}
-      role="listitem"
-      aria-label={item.Title}
-    >
-      <DocumentCard
-        type={isCompact ? DocumentCardType.compact : DocumentCardType.normal}        
-        onClickHref={item.FileRef}
-        style={{ boxShadow: DefaultEffects.elevation4 }}
-        className={styles.font}
-      >
-        <DocumentCardPreview {...previewProps} />
-
-        <DocumentCardDetails>
-          <DocumentCardTitle
-            title={item.Title}
-            shouldTruncate={true}
-            className={styles.font}
-          />   
-          <DocumentCardTitle
-          className={styles.font}
-            title={"Publicado em " + moment(item.FirstPublishedDate).format('LL')}  
-            showAsSecondaryTitle={true}
-            shouldTruncate={true}
-          />         
-          
-        </DocumentCardDetails>
-        
-      </DocumentCard>
-    </div>;
-  }
 
   public render(): JSX.Element {
     
@@ -125,13 +83,6 @@ export default class ReactComunicados extends React.Component<IReactComunicadosP
                 <Link className="content" href={this.props.context.pageContext.web.absoluteUrl + "/SitePages/Publicações.aspx?categoria=Comunicados"}>Ver todos</Link>
               }/>
               
-
-        {/* <GridLayout
-            ariaLabel="Comunicados"
-            items={this.state.items}
-            onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}
-          /> */}
-
           <div className={ styles.row }>
 
           {this.state.items.map((item: IComunicado, _index: number) => {

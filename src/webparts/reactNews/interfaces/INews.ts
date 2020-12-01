@@ -17,8 +17,8 @@ export interface IUrl{
 
 export interface INew extends IItem{
     FileRef?: string;    
-    Categoria?: ICategoria;
-    TipoComunicado? : ITipoComunicado;
+    Categoria?: string;
+    TipoComunicado? : string;
     FirstPublishedDate?: string;
     DocId?: number;
     Author?: string;

@@ -65,19 +65,11 @@ export default class MidiaService{
                 .then((client)=>{
                     client.api(path).version("v1.0")                
                         .get((error, response: any, rawResponse?: any) => {
-                            console.log("response", response);
                             let url = response.url;
                             resolve({
                                 Id: id, 
                                 Thumbnail: url
                             });
-
-                            // let result : any = {};
-                            // result[`${id}`] = url;
-                            // console.log(result);
-                            // resolve(result);
-
-                            
                             
                         });
                 });
@@ -127,14 +119,12 @@ export default class MidiaService{
 
         return this._getListData(serverRelativeUrl)
             .then(async (midias) => {
-                console.log("midias", midias);
                 result = midias;
 
                 const thumbs = await this._getThumbByMidias(midias, path);
                 return thumbs;
                 
             }).then((thumbs) => {
-                console.log("thumbs", thumbs);       
                 const a3 = result.map(t1 => ({...t1, ...thumbs.find(t2 => t2.Id === t1.Id)}));
 
                 return a3;
@@ -144,7 +134,6 @@ export default class MidiaService{
 
       private  _getListData(serverRelativeUrl : string): Promise<IMidiaDetail[]> {
         let path = unescape( serverRelativeUrl);
-        //console.log("path", path);
 
         return sp.web.getFileByServerRelativePath(path).getItem("Galeria").then((data) => {
 
@@ -154,8 +143,6 @@ export default class MidiaService{
         }).then(async (folderGaleria: IUrl) => { 
 
             let pathGaleria = decodeURIComponent( folderGaleria.Url.replace(this.url + "/", ""));
-            console.log("pathGaleria", pathGaleria);
-            console.log("folderGaleria", folderGaleria);
 
             return sp.web
                 .getFolderByServerRelativePath(pathGaleria)
@@ -165,7 +152,6 @@ export default class MidiaService{
                 .get()
                 .then((files) => {
                     
-                    console.log("files", files);
 
                     return files.map<IMidiaDetail>(file => ({
                     

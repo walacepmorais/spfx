@@ -18,8 +18,8 @@ export interface IUrl{
 
 export interface IComunicado extends IItem{    
     FileRef?: string;        
-    Categoria?: ICategoria;
-    TipoComunicado? : ITipoComunicado;
+    Categoria?: string;
+    TipoComunicado? : string;
     BannerImageUrl?: IUrl;
     FirstPublishedDate?: string;
      

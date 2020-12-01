@@ -78,8 +78,6 @@ export default class AniversarianteService{
 
                 const comments = await page.getComments();
 
-                console.log(comments.filter((v) => { return v.author.id === this.currentUser.Id; }));
-                
                 let isCommented = comments.filter((v) => { return v.author.id === this.currentUser.Id; }).length > 0; 
                 
                 let result : IAniversariante = aniversariante;
@@ -90,7 +88,6 @@ export default class AniversarianteService{
                 result.IsLiked = info.isLikedByUser;
                 result.IsCommented = isCommented;
 
-                console.log(page.sections[0].columns[0].controls[0]);
 
                 resolve(result);
             }catch (e){
@@ -190,17 +187,10 @@ export default class AniversarianteService{
         return new Promise<any>(async (resolve, reject) => {
 
                 this.currentUser = await sp.web.currentUser.get();
-                console.log("currentUser", this.currentUser);
 
                 this.partDefs = await sp.web.getClientsideWebParts();
-                //console.log(this.partDefs);
                 
                 this.partDef = this.partDefs.filter(c => c.Id === "7f718435-ee4d-431c-bdbf-9c4ff326f46e");
-                //this.partDef = this.partDefs.filter(c => c.Id === "102f1fc1-3369-4372-8e44-f27dd11a9377");                
-                console.log(this.partDef);
-
-                
-
            
                 let promisesMethods:any = [];
 
@@ -245,8 +235,6 @@ export default class AniversarianteService{
                 
                 query += inicio2 + ".." + fim2;
 
-                console.log(query);
-
             }else{
                 sunday = moment().day(0).format(format);
                 saturday = moment().day(6).format(format);
@@ -287,7 +275,6 @@ export default class AniversarianteService{
                 ClientType: 'CSOM'
             });
 
-            console.log(results2.PrimarySearchResults);
 
             aniversariantes = results2.PrimarySearchResults.map<IAniversariante>((result) =>{
 

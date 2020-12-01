@@ -181,7 +181,6 @@ export default class ReactCalendario extends React.Component<IReactCalendarioPro
   private _eventStyleGetter(event, start, end, isSelected) {
       var backgroundColor = event.cor;
 
-      console.log(event);
 
       var style = {
           backgroundColor: backgroundColor,

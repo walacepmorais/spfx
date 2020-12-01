@@ -112,7 +112,6 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
       specificSearch : specificSearch
     });
 
-    console.log(filters);
 
     this._getItems(filters);
 
@@ -145,7 +144,6 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
   }
 
   private _filter(){
-    console.log(this.state.filters);
     this._getItems(this.state.filters);
   }
 
@@ -180,7 +178,7 @@ export default class ReactNews extends React.Component<IReactNewsProps, INewsSta
 
     var reactHandler = this;
 
-    this.service.getTiposComunicado(option.key)
+    this.service.getTiposComunicado(option.text)
       .then((tipos) => {
         
         let options : IDropdownOption[] = [];

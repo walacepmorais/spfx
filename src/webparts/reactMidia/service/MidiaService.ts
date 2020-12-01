@@ -56,16 +56,14 @@ export default class MidiaService{
                 "Id",
                 "Title",
                 "FileRef",
-                "Categoria/Id",
-                "Categoria/Title",                
+                "Categoria",
                 "BannerImageUrl",
                 "Created",
                 "Modified",                
                 "Midia",
                 "FirstPublishedDate",
                 "Galeria")
-            .expand("Categoria")
-            .filter("Categoria/Title eq 'Galeria' and Midia eq '"+ tipoMidia +"'")
+            .filter("Categoria eq 'Galeria' and Midia eq '"+ tipoMidia +"'")
             .top(1)
             .orderBy("FirstPublishedDate", false)
             .get().then((data) => {
@@ -86,16 +84,13 @@ export default class MidiaService{
             }).then(async (midia: IMidia) => {                    
 
                     let path = midia.Galeria != null ? unescape( midia.Galeria.Url.replace(this.url + "/", "")) : "";
-                    console.log(path);
 
                     return sp.web
                         .getFolderByServerRelativePath(path)
                         .files()                        
                         .then((files) => {
-                            console.log(files);
                             
                             midia.Count = files.length;
-                            console.log(midia);
 
                             return midia;
 

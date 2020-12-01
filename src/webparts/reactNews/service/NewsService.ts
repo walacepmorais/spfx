@@ -41,8 +41,6 @@ export default class NewsService{
     constructor (props : INewsServiceProps){
         this.pageSize = props.pageSize;        
 
-        console.log(this.queryText);
-
     }
 
     public get (filter? : IFilter) : Promise<INewsResult>{
@@ -81,11 +79,11 @@ export default class NewsService{
         });
     }
 
-    public async getTiposComunicado(categoriaId: number) : Promise<IItem[]>{
+    public async getTiposComunicado(categoria: string) : Promise<IItem[]>{
         return new Promise<any>(async (resolve, reject) => {
             let categorias = await sp.web.lists.getByTitle('Tipo Comunicado')
                 .items
-                .filter(`CategoriaId eq ${categoriaId}`)
+                .filter(`Categoria eq ${categoria}`)
                 .select("Title", "ID")
                 .orderBy("Title")
                 .get<IItem>();
@@ -94,16 +92,16 @@ export default class NewsService{
     } 
 
     private _getFilterText(filter?: IFilter){
-        let queryText : string  = "CategoriaId ne null";
+        let queryText : string  = "Categoria ne null";
 
         if(filter === undefined) return queryText;
 
         if(filter.categoria !== null && filter.categoria !== undefined && filter.categoria != ""){
-            queryText = `Categoria/Title eq '${filter.categoria}'`;
+            queryText = `Categoria eq '${filter.categoria}'`;
         }
 
         if(filter.tipoComunicado !== null && filter.tipoComunicado !== undefined && filter.tipoComunicado != ""){
-            queryText += ` and TipoComunicado/Title eq '${filter.tipoComunicado}'` ;
+            queryText += ` and TipoComunicado eq '${filter.tipoComunicado}'` ;
         }
 
         if(filter.hasImagem == true && (filter.hasVideo == false || filter.hasVideo == null)){
@@ -113,9 +111,6 @@ export default class NewsService{
         }else if(filter.hasImagem == true && filter.hasVideo == true){
             queryText += " and (Midia eq 'Vídeos' or Midia eq 'Imagens')";
         }
-
-
-        console.log(queryText);
 
         return queryText;
 
@@ -132,16 +127,13 @@ export default class NewsService{
                         'Title',
                         'Description',
                         'FileRef',
-                        'Categoria/Id',
-                        'Categoria/Title',
-                        'TipoComunicado/Id',
-                        'TipoComunicado/Title',
+                        'Categoria',
+                        'TipoComunicado',
                         'BannerImageUrl',
                         'Created',
                         'Modified',
                         'FirstPublishedDate')
                     .filter(this._getFilterText(filter))
-                    .expand('Categoria', 'TipoComunicado')
                     .top(this.pageSize);
 
                 this.pagedItems = await this.items.getPaged<INew[]>();
@@ -189,7 +181,6 @@ export default class NewsService{
                     pageNews = this.paginate(this.news, this.pageSize, page);                           
                 }
 
-                //console.log(`this.page ${page}, this.pageSize ${this.pageSize}, this.page * this.pageSize ${page * this.pageSize}, this.news.length ${this.news.length}, pageNews.length ${pageNews.length}, total_pages ${total_pages}, this.hasNext ${this.hasNext}, shouldPaginate ${shouldPaginate}`);
                 
                  let result : INewsResult = {
                     news : pageNews,
@@ -231,8 +222,6 @@ export default class NewsService{
                     hasNext : this.hasNext || r,
                     hasPrevious : this.page > 1
                  };
-
-                //console.log(`this.page ${this.page}, this.pageSize ${this.pageSize}, this.page * this.pageSize ${this.page * this.pageSize}, this.news.length ${this.news.length}, pageNews.length ${pageNews.length}, total_pages ${total_pages}, this.hasNext ${this.hasNext}`);
 
                  resolve(result);
             }catch (error) {  
