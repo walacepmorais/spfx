@@ -83,7 +83,7 @@ export default class MidiaService{
 
             }).then(async (midia: IMidia) => {                    
 
-                    if(midia == undefined){
+                    if(midia == undefined || midia == null){
                         return Promise.resolve();
                     }
 

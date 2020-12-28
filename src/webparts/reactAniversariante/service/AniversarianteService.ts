@@ -72,7 +72,7 @@ export default class AniversarianteService{
     private async _loadPage(aniversariante : IAniversariante){
         return new Promise<any>(async (resolve, reject) => {
             try{
-                const page = await sp.web.loadClientsidePage(this._getDestinationPageFilePath(aniversariante.UserName));
+                const page = await sp.web.loadClientsidePage(this._getDestinationPageFilePath(aniversariante.WorkEmail));
 
                 const info = await page.getLikedByInformation();
 
@@ -84,7 +84,7 @@ export default class AniversarianteService{
                 result.Likes = info.likeCount;
                 result.Comments = comments.length;
                 result.InfoLoaded = true;
-                result.PageUrl = this._getDestinationPageFilePath(aniversariante.UserName);
+                result.PageUrl = this._getDestinationPageFilePath(aniversariante.WorkEmail);
                 result.IsLiked = info.isLikedByUser;
                 result.IsCommented = isCommented;
 
@@ -100,7 +100,7 @@ export default class AniversarianteService{
     private async _createPage(aniversariante : IAniversariante ) : Promise<any>{
         return new Promise<any>(async (resolve, reject) => {
             try{
-                const page = await CreateClientsidePage(sp.web, aniversariante.UserName, aniversariante.Title, "Article", PromotedState.PromoteOnPublish);
+                const page = await CreateClientsidePage(sp.web, aniversariante.WorkEmail, aniversariante.Title, "Article", PromotedState.PromoteOnPublish);
                 page.bannerImageUrl = `${this.url}/SiteAssets/images/aniversariantes/HeaderAniversarianteHTML.png`;
                 page.thumbnailUrl = `${this.url}/_vti_bin/DelveApi.ashx/people/profileimage?size=M&userId=${aniversariante.WorkEmail}`;
                 page.topicHeader = `Feliz Aniversário, ${aniversariante.Title}!`;
@@ -127,8 +127,8 @@ export default class AniversarianteService{
 
                 let saved = await page.save(true);
 
-                await sp.web.getFileByServerRelativePath(this._getOriginPageFilePath(aniversariante.UserName))
-                    .moveTo(this._getDestinationPageFilePath(aniversariante.UserName));
+                await sp.web.getFileByServerRelativePath(this._getOriginPageFilePath(aniversariante.WorkEmail))
+                    .moveTo(this._getDestinationPageFilePath(aniversariante.WorkEmail));
 
                 resolve(this._loadPage(aniversariante));
             }catch(e){
@@ -169,14 +169,9 @@ export default class AniversarianteService{
 
             let fileExists = await file.exists();
 
-            
-
             if(fileExists){
                 resolve(this._loadPage(aniversariante));
-            }else{
-                resolve(this._createPage(aniversariante));
             }
-            
             
         });
       }

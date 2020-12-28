@@ -138,6 +138,10 @@ export default class ReactEventos extends React.Component<IReactEventosProps, IR
 
     this.localidade = option.key == 0 ? "" : option.text;
 
+    this.setState({
+      localidadeId : option.key
+    });
+
     let filter : IFilter = {
       localidade: this.localidade,
       eventRange: this.props.eventRange
