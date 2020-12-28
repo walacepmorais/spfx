@@ -81,8 +81,8 @@ export default class ReactCarrossel extends React.Component<IReactCarrosselProps
             element= {this.state.items}
 
 
-            onMoveNextClicked={(index: number) => { console.log(`Next button clicked: ${index}`); }}
-            onMovePrevClicked={(index: number) => { console.log(`Prev button clicked: ${index}`); }}
+            // onMoveNextClicked={(index: number) => { console.log(`Next button clicked: ${index}`); }}
+            // onMovePrevClicked={(index: number) => { console.log(`Prev button clicked: ${index}`); }}
           />
 
         </div>

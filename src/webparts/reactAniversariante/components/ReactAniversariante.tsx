@@ -92,6 +92,10 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
 
  private _getAniversariantesInfo(){
   var reactHandler = this;
+
+  //this.filteredAniversariantes
+
+
   this.props.service
   .getAniversariantesInfo(this.aniversariantes)
   .then((aniversariantes) => {
@@ -139,10 +143,12 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
     this.props.service.get()
         .then((data) => {
           
-        this.aniversariantes = data            
+        this.aniversariantes = data
+          .filter(x => this._isValid(x.Birthday) && this._isValid(x.WorkEmail) && x.WorkEmail.indexOf("@cibra.com") != -1)
+          .sort((a, b) => a.Title > b.Title ? 1 : -1)
           .map<IAniversariante>((aniversariante) => {
             aniversariante.imageUrl = aniversariante.PictureURL;
-            aniversariante.text= aniversariante.Title;
+            aniversariante.text= aniversariante.Title + " (" +  moment(aniversariante.Birthday).format("DD/MM") + ")";
             aniversariante.secondaryText= aniversariante.OfficeNumber;
             aniversariante.tertiaryText= moment(aniversariante.Birthday).format("DD/MM");
             aniversariante.optionalText= aniversariante.Department;            
@@ -166,6 +172,10 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
         
 
       });
+  }
+
+  private _isValid(value : any) : boolean{
+    return value != null && value != undefined && value != "";
   }
 
   private _getPage(page: number): void {
@@ -264,6 +274,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
                 />
 
             </Stack>
+            
 
               {this.state.page.map((item: IAniversariante, _index: number) => {
                 return <div className={styles.personaBox}>
@@ -303,7 +314,7 @@ export default class ReactAniversariante extends React.Component<IReactAniversar
               limiter={this.state.limiter} // Optional - default value 3
               hideFirstPageJump // Optional
               hideLastPageJump // Optional
-              limiterIcon={"Emoji12"} // Optional
+              //limiterIcon={"Emoji12"} // Optional
             />
 
             </div>

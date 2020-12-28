@@ -69,7 +69,7 @@ export default class AniversarianteService{
     }
 
 
-    private async _loadPage(aniversariante : IAniversariante){
+    private async _loadPage(aniversariante : IAniversariante) : Promise<IAniversariante>{
         return new Promise<any>(async (resolve, reject) => {
             try{
                 const page = await sp.web.loadClientsidePage(this._getDestinationPageFilePath(aniversariante.WorkEmail));
@@ -162,7 +162,7 @@ export default class AniversarianteService{
           }) as Promise<IAniversariante[]>;
       }
 
-      private async _getActions(aniversariante : IAniversariante){
+      public async getActions(aniversariante : IAniversariante) : Promise<IAniversariante>{
         return new Promise<any>(async (resolve, reject) => {
             let path = this._getDestinationPageFilePath(aniversariante.UserName);
             let file = sp.web.getFileByServerRelativeUrl(path);
@@ -190,7 +190,7 @@ export default class AniversarianteService{
                 let promisesMethods:any = [];
 
                 aniversariantes.map((aniversariante) => {
-                    promisesMethods.push(this._getActions(aniversariante));
+                    promisesMethods.push(this.getActions(aniversariante));
                 });
 
                 await Promise.all(promisesMethods)
@@ -218,6 +218,7 @@ export default class AniversarianteService{
 
             let query: string, inicio1: string, fim1: string, inicio2: string, fim2: string, sunday: string, saturday : string;
             let format : string = "2000-MM-DD";
+            query = "";
 
             if( moment().day(0).year() < moment().day(6).year()){
                 inicio1 = moment().day(0).format(format);
